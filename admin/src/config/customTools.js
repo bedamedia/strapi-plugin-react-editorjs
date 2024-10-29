@@ -1,16 +1,16 @@
-import Embed from '@editorjs/embed'
-import Table from '@editorjs/table'
-import List from '@editorjs/list'
-import Warning from '@editorjs/warning'
-import Code from '@editorjs/code'
-import Raw from '@editorjs/raw'
-import Header from '@editorjs/header'
-import Quote from '@editorjs/quote'
-import Marker from '@editorjs/marker'
-import CheckList from '@editorjs/checklist'
-import Delimiter from '@editorjs/delimiter'
-import InlineCode from '@editorjs/inline-code'
-import Hyperlink from '../components/hyperlink/Hyperlink';
+import Embed from "@editorjs/embed";
+import Table from "@editorjs/table";
+import List from "@editorjs/list";
+import Warning from "@editorjs/warning";
+import Code from "@editorjs/code";
+import Raw from "@editorjs/raw";
+import Header from "@editorjs/header";
+import Quote from "@editorjs/quote";
+import Marker from "@editorjs/marker";
+import CheckList from "@editorjs/checklist";
+import Delimiter from "@editorjs/delimiter";
+import InlineCode from "@editorjs/inline-code";
+import Hyperlink from "../components/hyperlink/Hyperlink";
 
 const customTools = {
   embed: Embed,
@@ -26,8 +26,8 @@ const customTools = {
     class: Warning,
     inlineToolbar: true,
     config: {
-      titlePlaceholder: 'Title',
-      messagePlaceholder: 'Message',
+      titlePlaceholder: "Title",
+      messagePlaceholder: "Message",
     },
   },
   code: Code,
@@ -35,16 +35,16 @@ const customTools = {
   hyperlink: {
     class: Hyperlink,
     config: {
-      shortcut: 'CMD+L',
-      target: '_blank',
-      rel: 'nofollow',
-      availableTargets: ['_blank', '_self'],
-      availableRels: ['author', 'noreferrer'],
+      shortcut: "CMD+L",
+      target: "_blank",
+      rel: "nofollow",
+      availableTargets: ["_blank", "_self"],
+      availableRels: ["author", "noreferrer"],
       validate: false,
     },
     inlineToolbar: true,
   },
-  link: function() {},
+  link: function () {},
   raw: {
     class: Raw,
     inlineToolbar: true,
@@ -57,8 +57,8 @@ const customTools = {
     class: Quote,
     inlineToolbar: true,
     config: {
-      quotePlaceholder: 'Quote',
-      captionPlaceholder: 'Quote`s author',
+      quotePlaceholder: "Quote",
+      captionPlaceholder: "Quote`s author",
     },
   },
   marker: {
@@ -71,6 +71,6 @@ const customTools = {
   },
   delimiter: Delimiter,
   inlineCode: InlineCode,
-}
+};
 
-export default customTools
+export default customTools;

@@ -1,20 +1,19 @@
-import PluginId from '../../pluginId'
-const axios = require('axios')
-import { auth } from '@strapi/helper-plugin';
+import PluginId from "../../pluginId";
+import axios from "axios";
 
 // Plugins for Editor.js
-import Image from '@editorjs/image'
+import Image from "@editorjs/image";
 
-const requiredTools = {
+const requiredTools = (options) => ({
   image: {
     class: Image,
     config: {
       field: "files.image",
       additionalRequestData: {
-        data: JSON.stringify({})
+        data: JSON.stringify({}),
       },
       additionalRequestHeaders: {
-        "Authorization": `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${options.token}`,
       },
       endpoints: {
         byUrl: `/api/${PluginId}/image/byUrl`,
@@ -25,17 +24,21 @@ const requiredTools = {
           formData.append("data", JSON.stringify({}));
           formData.append("files.image", file);
 
-          const {data} = await axios.post(`/api/${PluginId}/image/byFile`, formData, {
-            headers: {
-              "Authorization": `Bearer ${auth.getToken()}`
-            }
-          });
+          const { data } = await axios.post(
+            `/api/${PluginId}/image/byFile`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${options.token}`,
+              },
+            },
+          );
 
-          return data
+          return data;
         },
-      }
-    }
-  }
-}
+      },
+    },
+  },
+});
 
-export default requiredTools
+export default requiredTools;

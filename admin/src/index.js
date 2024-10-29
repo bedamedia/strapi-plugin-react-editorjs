@@ -1,11 +1,14 @@
-import pluginPkg from '../../package.json';
-import Wysiwyg from './components/Wysiwyg';
-import pluginId from './pluginId';
+import wysiwyg_field_register from "../../custom_fields/wysiwyg_field_register";
+import input_field_register from "../../custom_fields/input_field_register";
+import pluginPkg from "../../package.json";
+// import Wysiwyg from "./components/Wysiwyg";
+import pluginId from "./pluginId";
 
 export default {
   register(app) {
     // executes as soon as the plugin is loaded
-    const pluginDescription = pluginPkg.strapi.description || pluginPkg.description;
+    const pluginDescription =
+      pluginPkg.strapi.description || pluginPkg.description;
 
     app.registerPlugin({
       blockerComponent: null,
@@ -14,7 +17,7 @@ export default {
       icon: pluginPkg.strapi.icon,
       intlLabel: {
         id: pluginId,
-        defaultMessage: pluginId
+        defaultMessage: pluginId,
       },
       id: pluginId,
       initializer: () => null,
@@ -27,7 +30,9 @@ export default {
       settings: null,
       trads: {},
     });
-    app.addFields({ type: 'wysiwyg', Component: Wysiwyg });
+
+    wysiwyg_field_register.adminRegister(app);
+    input_field_register.adminRegister(app);
   },
   bootstrap() {},
 };
