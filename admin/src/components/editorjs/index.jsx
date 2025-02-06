@@ -7,8 +7,7 @@ import MediaLibComponent from "../medialib/component";
 import { changeFunc, getToggleFunc } from "../medialib/utils";
 import { useAuth } from "@strapi/strapi/admin";
 // import EditorJs from "react-editor-js";
-import { createReactEditorJS } from "react-editor-js";
-const EditorJs = createReactEditorJS();
+import EditorJs from "@react-editor-js/client";
 
 const getValue = (value) => {
   try {
