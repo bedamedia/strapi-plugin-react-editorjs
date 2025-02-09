@@ -353,9 +353,11 @@ export default class Hyperlink {
         anchorTag.removeAttribute("rel");
       }
 
-      document.execCommand(this.commandLink, false, link);
 
     }
+    console.log('should insert')
+    document.execCommand(this.commandLink, false, link);
+
   }
 
   unlink() {
