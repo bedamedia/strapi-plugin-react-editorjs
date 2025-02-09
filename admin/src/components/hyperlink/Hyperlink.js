@@ -352,6 +352,9 @@ export default class Hyperlink {
       } else {
         anchorTag.removeAttribute("rel");
       }
+
+      document.execCommand(this.commandLink, false, link);
+
     }
   }
 
