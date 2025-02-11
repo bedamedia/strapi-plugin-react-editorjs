@@ -10,7 +10,11 @@ import Marker from '@editorjs/marker'
 import CheckList from '@editorjs/checklist'
 import Delimiter from '@editorjs/delimiter'
 import InlineCode from '@editorjs/inline-code'
-import Hyperlink from '../components/hyperlink/Hyperlink';
+import Link from "@editorjs/link";
+import Hyperlink from "../components/hyperlink/Hyperlink";
+import LinkBlockTune from "../components/LinkBlockTune";
+import SimpleImage from "../components/SimpleImage";
+import MarkerTool from "../components/MarkerTool";
 
 const customTools = {
   embed: Embed,
@@ -26,25 +30,32 @@ const customTools = {
     class: Warning,
     inlineToolbar: true,
     config: {
-      titlePlaceholder: 'Title',
-      messagePlaceholder: 'Message',
+      titlePlaceholder: "Title",
+      messagePlaceholder: "Message",
     },
   },
   code: Code,
-
   hyperlink: {
     class: Hyperlink,
     config: {
-      shortcut: 'CMD+L',
-      target: '_blank',
-      rel: 'nofollow',
-      availableTargets: ['_blank', '_self'],
-      availableRels: ['author', 'noreferrer'],
+      shortcut: "CMD+L",
+      target: "_blank",
+      rel: "nofollow",
+      availableTargets: ["_blank", "_self"],
+      availableRels: ["author", "noreferrer"],
       validate: false,
     },
     inlineToolbar: true,
   },
-  link: function() {},
+  // simpleImage: SimpleImage,
+  // testMarker: MarkerTool,
+
+  // link: {
+  //   class: Link,
+  //   inlineToolbar: true,
+  //   tunes: ["linkBlockTune"],
+  // },
+  // linkBlockTune: LinkBlockTune,
   raw: {
     class: Raw,
     inlineToolbar: true,
@@ -57,8 +68,8 @@ const customTools = {
     class: Quote,
     inlineToolbar: true,
     config: {
-      quotePlaceholder: 'Quote',
-      captionPlaceholder: 'Quote`s author',
+      quotePlaceholder: "Quote",
+      captionPlaceholder: "Quote`s author",
     },
   },
   marker: {
@@ -71,6 +82,6 @@ const customTools = {
   },
   delimiter: Delimiter,
   inlineCode: InlineCode,
-}
+};
 
 export default customTools
