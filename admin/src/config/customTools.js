@@ -47,6 +47,7 @@ const customTools = {
     },
     inlineToolbar: true,
   },
+  link: function () {},
   // simpleImage: SimpleImage,
   // testMarker: MarkerTool,
 
