@@ -10,7 +10,11 @@ import Marker from "@editorjs/marker";
 import CheckList from "@editorjs/checklist";
 import Delimiter from "@editorjs/delimiter";
 import InlineCode from "@editorjs/inline-code";
+import Link from "@editorjs/link";
 import Hyperlink from "../components/hyperlink/Hyperlink";
+import LinkBlockTune from "../components/LinkBlockTune";
+import SimpleImage from "../components/SimpleImage";
+import MarkerTool from "../components/MarkerTool";
 
 const customTools = {
   embed: Embed,
@@ -31,7 +35,6 @@ const customTools = {
     },
   },
   code: Code,
-
   hyperlink: {
     class: Hyperlink,
     config: {
@@ -45,6 +48,15 @@ const customTools = {
     inlineToolbar: true,
   },
   link: function () {},
+  // simpleImage: SimpleImage,
+  // testMarker: MarkerTool,
+
+  // link: {
+  //   class: Link,
+  //   inlineToolbar: true,
+  //   tunes: ["linkBlockTune"],
+  // },
+  // linkBlockTune: LinkBlockTune,
   raw: {
     class: Raw,
     inlineToolbar: true,

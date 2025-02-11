@@ -13,22 +13,80 @@ export default class MediaLibAdapter {
   }
 
   render() {
-    const wraper = make("div", [this.api.styles.button]);
+    const wraper = make("div", [this.api.styles.button], {
+      style:
+        "display:flex;align-items:center;flex-direction:column;justify-content:center;width:100%;height:100%;gap:8px",
+    });
+    wraper.style.overflow = "hidden";
 
-    const imageEl = make("IMG", this.api.styles["image-tool__image-picture"], {
-      src: this.file?.url || "",
+    const imageWrapper = make("div", [], {
+      style: "display:flex;justify-content:center;width:100%;height:100%",
     });
 
-    const p = make("P", null, { innerText: "Select image" });
-    wraper.appendChild(imageEl);
-    wraper.appendChild(p);
+    const imageEl = make("IMG", this.api.styles["image-tool__image-picture"], {
+      src: this.getPreviewImage(this.file),
+    });
 
-    wraper.addEventListener("click", () => {
+    if (!this.file) {
+      imageEl.style.display = "none";
+    } else {
+      if (!this.isImage(this.file)) {
+        imageEl.style.width = "40px";
+        imageEl.style.height = "40px";
+      } else {
+        imageEl.style.width = "100px";
+        imageEl.style.height = "100px";
+      }
+    }
+
+    const filelinkAttributes =
+      !this.file || this.isImage(this.file)
+        ? {
+            innerText: "",
+            href: "",
+          }
+        : {
+            innerText: this.file.name,
+            href: this.file.url,
+            target: "_blank",
+          };
+    const fileLinkEl = make("A", null, filelinkAttributes);
+    if (!this.file) fileLinkEl.style.display = "none";
+    const selectButton = make("BUTTON", [this.api.styles.button], {
+      innerText: "Select image/file",
+      style: "padding:10px 18px;font-size:14px",
+      type: "button",
+      display: "block",
+    });
+    wraper.appendChild(imageWrapper);
+    imageWrapper.appendChild(imageEl);
+    wraper.appendChild(fileLinkEl);
+    wraper.appendChild(selectButton);
+
+    selectButton.addEventListener("click", () => {
       const currentIndex = this.api.blocks.getCurrentBlockIndex();
 
       this.config.onBlockClicked((files) => {
+        if (!files || !files.length) return;
         this.file = files[0];
-        imageEl.src = files[0].url;
+        imageEl.src = this.getPreviewImage(files[0]);
+
+        if (imageEl.style.display === "none") {
+          imageEl.style.display = "block";
+        }
+
+        if (!this.isImage(this.file)) {
+          fileLinkEl.style.display = "block";
+          fileLinkEl.innerText = this.file?.name ?? "";
+          fileLinkEl.href = this.file?.url ?? "";
+          imageEl.style.width = "40px";
+          imageEl.style.height = "40px";
+        } else {
+          fileLinkEl.style.display = "none";
+
+          imageEl.style.width = "100px";
+          imageEl.style.height = "100px";
+        }
       });
     });
 
@@ -36,9 +94,38 @@ export default class MediaLibAdapter {
   }
 
   save(...args) {
-    console.log("image save args", this.file);
     return {
       file: this.file,
+    };
+  }
+
+  getPreviewImage(file) {
+    if (!file) return "";
+    if (this.isImage(file)) return file.url;
+    else return "/file.png";
+  }
+
+  isImage(file) {
+    if (!file) return false;
+    if (file.mime.includes("image")) return true;
+    else return false;
+  }
+
+  get CSS() {
+    return {
+      baseClass: this.api.styles.block,
+      loading: this.api.styles.loader,
+      input: this.api.styles.input,
+      button: this.api.styles.button,
+
+      /**
+       * Tool's classes
+       */
+      wrapper: "image-tool",
+      imageContainer: "image-tool__image",
+      imagePreloader: "image-tool__image-preloader",
+      imageEl: "image-tool__image-picture",
+      caption: "image-tool__caption",
     };
   }
 }
