@@ -143,10 +143,10 @@
   dependencies:
     "@editorjs/helpers" "^0.0.4"
 
-"@editorjs/editorjs@*", "@editorjs/editorjs@^2.29.1", "@editorjs/editorjs@2.30.6":
-  version "2.30.6"
-  resolved "https://registry.npmjs.org/@editorjs/editorjs/-/editorjs-2.30.6.tgz"
-  integrity sha512-6eQMc4Di3Hz9p4o+NGRgKaCeAF7eAk106m+bsDLc4eo94VGYO1M163OiGFdmanE+w503qTmXOzycWff5blEOAQ==
+"@editorjs/editorjs@*", "@editorjs/editorjs@^2.29.1", "@editorjs/editorjs@2.30.8":
+  version "2.30.8"
+  resolved "https://registry.npmjs.org/@editorjs/editorjs/-/editorjs-2.30.8.tgz"
+  integrity sha512-ClFuxI1qZTfXPJTacQfsJtOUP6bKoIe6BQNdAvGsDTDVwMnZEzoaSOwvUpdZEE56xppVfQueNK/1MElV9SJKHg==
 
 "@editorjs/embed@2.7.6":
   version "2.7.6"

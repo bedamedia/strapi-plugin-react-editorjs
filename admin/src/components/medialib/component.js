@@ -16,14 +16,15 @@ const MediaLibComponent = ({isOpen, onChange, onToggle}) => {
   };
 
   const handleSelectAssets = files => {
-    const formattedFiles = files.map(f => ({
+    const formattedFiles = files.map((f) => ({
       alt: f.alternativeText || f.name,
       url: prefixFileUrlWithBackendUrl(f.url),
       width: f.width,
       height: f.height,
       size: f.size,
       mime: f.mime,
-      formats: f.formats
+      name: f.name,
+      formats: f.formats,
     }));
     onChange(formattedFiles);
   };
@@ -34,7 +35,7 @@ const MediaLibComponent = ({isOpen, onChange, onToggle}) => {
 
   return (
     <MediaLibraryDialog
-      allowedTypes={['images']}
+      // allowedTypes={['images']}
       onClose={onToggle}
       onInputMediaChange={handleInputChange}
       onSelectAssets={handleSelectAssets}
