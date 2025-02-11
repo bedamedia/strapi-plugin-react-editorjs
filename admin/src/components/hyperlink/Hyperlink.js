@@ -342,6 +342,9 @@ export default class Hyperlink {
       anchorTag = this.selection.findParentTag("A");
     }
     if (anchorTag) {
+      if (link && link != anchorTag["href"]) {
+        anchorTag["href"] = link;
+      }
       if (!!target) {
         anchorTag["target"] = target;
       } else {
@@ -352,12 +355,7 @@ export default class Hyperlink {
       } else {
         anchorTag.removeAttribute("rel");
       }
-
-
     }
-    console.log('should insert')
-    document.execCommand(this.commandLink, false, link);
-
   }
 
   unlink() {
