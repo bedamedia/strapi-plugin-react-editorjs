@@ -3,7 +3,6 @@ const name = "wysiwyg";
 const type = "richtext";
 
 const serverRegister = () => {
-  console.log("typeof ", typeof strapi.customFields);
   strapi.customFields.register({
     name,
     plugin: pluginId,
@@ -17,8 +16,6 @@ const serverRegister = () => {
 };
 
 const adminRegister = (app) => {
-  console.log("typeof ", typeof app.customFields);
-
   app.customFields.register({
     name,
     pluginId,

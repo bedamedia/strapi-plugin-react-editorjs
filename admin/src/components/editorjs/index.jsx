@@ -16,6 +16,7 @@ const getValue = (value) => {
     return {};
   }
 };
+const holder = "react-editor-js-194f96947e1";
 const Editor = ({ onChange, name, value }) => {
   const [editorInstance, setEditorInstance] = useState();
   const [mediaLibBlockIndex, setMediaLibBlockIndex] = useState(-1);
@@ -26,8 +27,33 @@ const Editor = ({ onChange, name, value }) => {
   const editorCore = React.useRef(null);
   const imageSelectCbRef = React.useRef(null);
 
-  const handleInitialize = React.useCallback((instance) => {
+  const handleInitialize = React.useCallback(async (instance) => {
     editorCore.current = instance;
+    await instance.isReady;
+
+    const isDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    // NOTE: these updates should be applied only to strapi v5
+    const editor = document.getElementById(holder);
+    if (isDarkMode) editor.style.color = "black";
+
+    const id = "strapi5-editorjs-override";
+    if (!document.getElementById(id)) {
+      const style = document.createElement("style");
+      style.id = id;
+      style.innerHTML = `
+          h1.ce-header { font-size: 3rem !important; }
+          h2.ce-header { font-size: 2.5rem !important; }
+          h3.ce-header { font-size: 2.25rem !important; }
+          h4.ce-header { font-size: 2rem !important; }
+          h5.ce-header { font-size: 1.75rem !important; }
+          h6.ce-header { font-size: 1.65rem !important; }
+          .ce-block { font-size: 1.5rem !important; }
+        `;
+      document.head.appendChild(style);
+    }
   }, []);
 
   const mediaLibToggleFunc = useCallback(
@@ -76,6 +102,7 @@ const Editor = ({ onChange, name, value }) => {
         }}
       >
         <EditorJs
+          holder={holder}
           defaultValue={getValue(value)}
           onChange={async (...args) => {
             const savedData = await editorCore.current.save();
@@ -88,6 +115,17 @@ const Editor = ({ onChange, name, value }) => {
             ...customImageTool,
           }}
           onInitialize={handleInitialize}
+          // factory={(config) => {
+          //   console.log("from config", config);
+          //   return config;
+          //   return {
+          //     ...config,
+
+          //     // style: {
+          //     //   color: "black",
+          //     // },
+          //   };
+          // }}
         />
       </div>
       <MediaLibComponent
