@@ -2688,4 +2688,3 @@ export {
   getDefaultExportFromCjs as g,
   index as i
 };
-//# sourceMappingURL=index-DUefd1I_.mjs.map
