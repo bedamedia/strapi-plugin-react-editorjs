@@ -8,45 +8,33 @@ import { useIntl } from 'react-intl';
 import { Box } from '@strapi/design-system/Box';
 import { Typography } from '@strapi/design-system/Typography';
 
-const Wysiwyg = ({
-  name,
-  className,
-  error,
-  description,
-  intlLabel,
-  required,
-  onChange,
-  style,
-  value,
-  disabled,
-}) => {
-  const { formatMessage } = useIntl();
+const Wysiwyg = ({ name, className, error, description, intlLabel, required, onChange, style, value, disabled, ...other }) => {
+	const { formatMessage } = useIntl()
+	const locale = new URLSearchParams(window.location.search).get('plugins[i18n][locale]') ?? 'default'
+	const editorHolder = `editor-${locale}`
 
-  return (
-    <Wrapper size={1} className={`${cn(!isEmpty(className) && className)}`} style={style}>            
-      <Box>
-        <Typography variant="pi" fontWeight="bold">
-          {formatMessage(intlLabel)}
-        </Typography>
-        {required && (
-          <Typography variant="pi" fontWeight="bold" textColor="danger600">
-            *
-          </Typography>
-        )}
-      </Box>
-      <Editor onChange={onChange} value={value} name={name} disabled={disabled} />
-      {error && (
-        <Typography variant="pi" textColor="danger600">
-          {formatMessage({ id: error, defaultMessage: error })}
-        </Typography>
-      )}
-      {description && (
-        <Typography variant="pi">{formatMessage(description)}</Typography>
-      )}
-      
-    </Wrapper>
-  )
-};
+	return (
+		<Wrapper size={1} className={`${cn(!isEmpty(className) && className)}`} style={style}>
+			<Box>
+				<Typography variant="pi" fontWeight="bold">
+					{formatMessage(intlLabel)}
+				</Typography>
+				{required && (
+					<Typography variant="pi" fontWeight="bold" textColor="danger600">
+						*
+					</Typography>
+				)}
+			</Box>
+			<Editor locale={locale} onChange={onChange} value={value} name={name} disabled={disabled} />
+			{error && (
+				<Typography variant="pi" textColor="danger600">
+					{formatMessage({ id: error, defaultMessage: error })}
+				</Typography>
+			)}
+			{description && <Typography variant="pi">{formatMessage(description)}</Typography>}
+		</Wrapper>
+	)
+}
 
 Wysiwyg.defaultProps = {
   className: "",
