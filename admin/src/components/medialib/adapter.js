@@ -23,14 +23,20 @@ export default class MediaLibAdapter {
 		const imageEl = make('IMG', this.api.styles['image-tool__image-picture'], {
 			src: this.getPreviewImage(this.file),
 		})
+		imageEl.style.display = 'none'
 
-		if (!this.file) {
-			imageEl.style.display = 'none'
-		} else {
+		const svgEl = make('SVG', [], {
+			innerHTML: `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 40 40">
+<path fill="#fff" d="M6.5 37.5L6.5 2.5 24.793 2.5 33.5 11.207 33.5 37.5z"></path><path fill="#788b9c" d="M24.586,3L33,11.414V37H7V3H24.586 M25,2H6v36h28V11L25,2L25,2z"></path><path fill="#fff" d="M24.5 11.5L24.5 2.5 24.793 2.5 33.5 11.207 33.5 11.5z"></path><path fill="#788b9c" d="M25 3.414L32.586 11H25V3.414M25 2h-1v10h10v-1L25 2 25 2zM12 16H28V17H12zM12 19H24V20H12zM12 22H28V23H12zM12 25H24V26H12zM12 28H28V29H12z"></path>
+</svg>`,
+			style: 'display:none',
+		})
+
+		if (this.file) {
 			if (!this.isImage(this.file)) {
-				imageEl.style.width = '40px'
-				imageEl.style.height = '40px'
+				svgEl.style.display = 'block'
 			} else {
+				imageEl.style.display = 'block'
 				imageEl.style.width = '100px'
 				imageEl.style.height = '100px'
 			}
@@ -56,6 +62,7 @@ export default class MediaLibAdapter {
 			display: 'block',
 		})
 		wraper.appendChild(imageWrapper)
+		imageWrapper.appendChild(svgEl)
 		imageWrapper.appendChild(imageEl)
 		wraper.appendChild(fileLinkEl)
 		wraper.appendChild(selectButton)
@@ -68,18 +75,16 @@ export default class MediaLibAdapter {
 				this.file = files[0]
 				imageEl.src = this.getPreviewImage(files[0])
 
-				if (imageEl.style.display === 'none') {
-					imageEl.style.display = 'block'
-				}
-
 				if (!this.isImage(this.file)) {
 					fileLinkEl.style.display = 'block'
 					fileLinkEl.innerText = this.file?.name ?? ''
 					fileLinkEl.href = this.file?.url ?? ''
-					imageEl.style.width = '40px'
-					imageEl.style.height = '40px'
+					svgEl.style.display = 'block'
+					imageEl.style.display = 'none'
 				} else {
+					svgEl.style.display = 'none'
 					fileLinkEl.style.display = 'none'
+					imageEl.style.display = 'block'
 
 					imageEl.style.width = '100px'
 					imageEl.style.height = '100px'
@@ -99,7 +104,7 @@ export default class MediaLibAdapter {
 	getPreviewImage(file) {
 		if (!file) return ''
 		if (this.isImage(file)) return file.url
-		else return '/file.png'
+		else return 'https://www.iconpacks.net/icons/2/free-file-icon-1453-thumb.png'
 	}
 
 	isImage(file) {
