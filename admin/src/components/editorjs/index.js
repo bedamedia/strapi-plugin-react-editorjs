@@ -2,18 +2,20 @@ import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import requiredTools from './requiredTools'
 import customTools from '../../config/customTools'
-
 import MediaLibAdapter from '../medialib/adapter'
 import MediaLibComponent from '../medialib/component'
 import { changeFunc, getToggleFunc } from '../medialib/utils'
-
 import { createReactEditorJS } from 'react-editor-js'
 import { isEqual } from 'lodash'
 const EditorJs = createReactEditorJS()
+
 const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 	const [editorInstance, setEditorInstance] = useState()
 	const [mediaLibBlockIndex, setMediaLibBlockIndex] = useState(-1)
 	const [isMediaLibOpen, setIsMediaLibOpen] = useState(false)
+	const [isReady, setIsReady] = useState(false)
+	const [shouldReRender, setShouldReRender] = useState(false)
+
 	const editorCore = React.useRef(null)
 	const editorValueRef = React.useRef(value)
 	const imageSelectCbRef = React.useRef(null)
@@ -29,25 +31,6 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 		}),
 		[]
 	)
-
-	const updateEditorValue = async () => {
-		await editorCore.current._editorJS.isReady
-		setTimeout(() => {
-			editorCore.current._editorJS.render(getValue(value))
-		}, 0)
-	}
-	useEffect(() => {
-		// console.log('🚀 ~ useEffect:', {
-		// 	value,
-		// 	editorValue: editorValueRef.current,
-		// 	editorCore: editorCore.current,
-		// })
-		if (typeof editorCore.current) {
-			if (!isEqual(value, editorValueRef.current)) {
-				updateEditorValue()
-			}
-		}
-	}, [value])
 
 	// when image selected
 	const handleMediaLibChange = useCallback(
@@ -70,6 +53,15 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 			},
 		},
 	}
+
+	useEffect(() => {
+		if (isReady && !shouldReRender && !isEqual(editorValueRef.current, value)) {
+			editorValueRef.current = value
+			editorCore.current.render(getValue(value))
+			setShouldReRender(true)
+		}
+	}, [value, isReady])
+
 	return (
 		<>
 			<div
@@ -92,6 +84,10 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 						...customImageTool,
 					}}
 					onInitialize={handleInitialize}
+					onReady={() => {
+						console.log('is ready')
+						setIsReady(true)
+					}}
 				/>
 			</div>
 			<MediaLibComponent isOpen={isMediaLibOpen} onChange={handleMediaLibChange} onToggle={mediaLibToggleFunc} />
