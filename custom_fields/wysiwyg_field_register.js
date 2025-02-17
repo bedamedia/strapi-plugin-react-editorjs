@@ -1,7 +1,8 @@
-const pluginId = require("../admin/src/pluginId");
+// const pluginId = require("../admin/src/pluginId");
 const name = "wysiwyg";
 const type = "richtext";
 
+const pluginId = "editorjs";
 const serverRegister = () => {
   strapi.customFields.register({
     name,
