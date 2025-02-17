@@ -110,7 +110,7 @@
     "wysiwyg"
   ],
   "strapi": {
-    "name": "strapi-plugin-react-editorjs",
+    "name": "editorjs",
     "displayName": "editorjs",
     "description": "Integrate editorjs with strapi",
     "kind": "plugin"
