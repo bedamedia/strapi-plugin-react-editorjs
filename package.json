@@ -109,5 +109,11 @@
     "editor-js",
     "wysiwyg"
   ],
+  "strapi": {
+    "name": "strapi-plugin-react-editorjs",
+    "displayName": "editorjs",
+    "description": "Integrate editorjs with strapi",
+    "kind": "plugin"
+  },
   "license": "MIT"
 }
