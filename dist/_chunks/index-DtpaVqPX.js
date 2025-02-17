@@ -3,52 +3,7 @@ var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof win
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
 }
-const name$1 = "wysiwyg";
-const type$1 = "richtext";
-const pluginId$1 = "editorjs";
-const serverRegister = ({ strapi: strapi2 }) => {
-  strapi2.customFields.register({
-    name: name$1,
-    plugin: pluginId$1,
-    type: type$1,
-    inputSize: {
-      // optional
-      default: 12,
-      isResizable: true
-    }
-  });
-};
-const adminRegister = (app) => {
-  app.customFields.register({
-    name: name$1,
-    pluginId: pluginId$1,
-    type: type$1,
-    intlLabel: {
-      id: name$1,
-      defaultMessage: name$1
-    },
-    intlDescription: {
-      id: name$1,
-      defaultMessage: name$1
-    },
-    // icon: ColorPickerIcon, // don't forget to create/import your icon component
-    components: {
-      Input: async () => Promise.resolve().then(() => require(
-        /* webpackChunkName: "input-component" */
-        "./index-Br063T6t.js"
-      ))
-    },
-    options: {
-      // declare options here
-    }
-  });
-};
-var wysiwyg_field_register = {
-  serverRegister,
-  adminRegister
-};
-const wysiwyg_field_register$1 = /* @__PURE__ */ getDefaultExportFromCjs(wysiwyg_field_register);
-const name = "strapi-plugin-react-editorjs";
+const name$1 = "strapi-plugin-react-editorjs";
 const version = "0.0.0-development";
 const description = "Plugin for Strapi Headless CMS, hiding the standard WYSIWYG editor and replacing it with Editor.js";
 const homepage = "https://market.strapi.io/plugins/strapi-plugin-react-editorjs";
@@ -58,7 +13,7 @@ const scripts = {
   "watch:link": "strapi-plugin watch:link",
   verify: "strapi-plugin verify"
 };
-const type = "commonjs";
+const type$1 = "commonjs";
 const files = [
   "dist"
 ];
@@ -166,12 +121,12 @@ const strapi = {
 };
 const license = "MIT";
 const pluginPkg$1 = {
-  name,
+  name: name$1,
   version,
   description,
   homepage,
   scripts,
-  type,
+  type: type$1,
   files,
   exports: exports$1,
   dependencies,
@@ -187,12 +142,57 @@ const pluginPkg$1 = {
   license
 };
 const pluginPkg = pluginPkg$1;
-const pluginId = pluginPkg.name.replace(
+const pluginId$1 = pluginPkg.name.replace(
   /^strapi-plugin-react-/i,
   ""
 );
-var pluginId_1 = pluginId;
+var pluginId_1 = pluginId$1;
 const PluginId = /* @__PURE__ */ getDefaultExportFromCjs(pluginId_1);
+const pluginId = pluginId_1;
+const name = "wysiwyg";
+const type = "richtext";
+const serverRegister = ({ strapi: strapi2 }) => {
+  strapi2.customFields.register({
+    name,
+    plugin: pluginId,
+    type,
+    inputSize: {
+      // optional
+      default: 12,
+      isResizable: true
+    }
+  });
+};
+const adminRegister = (app) => {
+  app.customFields.register({
+    name,
+    pluginId,
+    type,
+    intlLabel: {
+      id: name,
+      defaultMessage: name
+    },
+    intlDescription: {
+      id: name,
+      defaultMessage: name
+    },
+    // icon: ColorPickerIcon, // don't forget to create/import your icon component
+    components: {
+      Input: async () => Promise.resolve().then(() => require(
+        /* webpackChunkName: "input-component" */
+        "./index-DFEOVeSP.js"
+      ))
+    },
+    options: {
+      // declare options here
+    }
+  });
+};
+var wysiwyg_field_register = {
+  serverRegister,
+  adminRegister
+};
+const wysiwyg_field_register$1 = /* @__PURE__ */ getDefaultExportFromCjs(wysiwyg_field_register);
 const index = {
   register(app) {
     const pluginDescription = pluginPkg$1.strapi?.description;
@@ -225,4 +225,4 @@ exports.PluginId = PluginId;
 exports.commonjsGlobal = commonjsGlobal;
 exports.getDefaultExportFromCjs = getDefaultExportFromCjs;
 exports.index = index;
-//# sourceMappingURL=index-Czg_PvkS.js.map
+//# sourceMappingURL=index-DtpaVqPX.js.map

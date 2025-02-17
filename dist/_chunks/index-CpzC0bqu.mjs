@@ -1,6 +1,6 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React, { useState, useCallback } from "react";
-import { g as getDefaultExportFromCjs, c as commonjsGlobal, P as PluginId } from "./index-BVEfy80P.mjs";
+import { g as getDefaultExportFromCjs, c as commonjsGlobal, P as PluginId } from "./index-BbaLi7V2.mjs";
 import Image from "@editorjs/image";
 import Embed from "@editorjs/embed";
 import Table from "@editorjs/table";
@@ -9958,4 +9958,4 @@ const Wysiwyg = ({
 export {
   Wysiwyg as default
 };
-//# sourceMappingURL=index-DULSun8O.mjs.map
+//# sourceMappingURL=index-CpzC0bqu.mjs.map
