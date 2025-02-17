@@ -6,16 +6,7 @@ function getDefaultExportFromCjs(x) {
 const name$1 = "strapi-plugin-react-editorjs";
 const version = "0.0.0-development";
 const description = "Plugin for Strapi Headless CMS, hiding the standard WYSIWYG editor and replacing it with Editor.js";
-const keywords = [
-  "strapi",
-  "plugin",
-  "editor-js",
-  "wysiwyg"
-];
 const homepage = "https://market.strapi.io/plugins/strapi-plugin-react-editorjs";
-const bugs = {
-  url: "https://github.com/melishev/strapi-plugin-editor-js/issues"
-};
 const scripts = {
   build: "strapi-plugin build",
   watch: "strapi-plugin watch",
@@ -81,8 +72,8 @@ const devDependencies = {
   "styled-components": "^6.1.13"
 };
 const peerDependencies = {
-  "@strapi/strapi": "^5.1.0",
-  "@strapi/sdk-plugin": "^5.2.7",
+  "@strapi/strapi": "^5",
+  "@strapi/sdk-plugin": "^5",
   react: "^18.3.1",
   "react-dom": "^18.3.1",
   "react-router-dom": "^6.27.0",
@@ -93,7 +84,6 @@ const config = {
     path: "./node_modules/cz-conventional-changelog"
   }
 };
-const license = "MIT";
 const author = {
   name: "Matvey Melishev",
   email: "matvey@melishev.ru",
@@ -114,13 +104,27 @@ const repository = {
   type: "git",
   url: "https://github.com/melishev/strapi-plugin-editor-js.git"
 };
+const bugs = {
+  url: "https://github.com/melishev/strapi-plugin-editor-js/issues"
+};
+const keywords = [
+  "strapi",
+  "plugin",
+  "editor-js",
+  "wysiwyg"
+];
+const strapi$1 = {
+  name: "strapi-plugin-react-editorjs",
+  displayName: "editorjs",
+  description: "Integrate editorjs with strapi",
+  kind: "plugin"
+};
+const license = "MIT";
 const pluginPkg$1 = {
   name: name$1,
   version,
   description,
-  keywords,
   homepage,
-  bugs,
   scripts,
   type: type$1,
   files,
@@ -129,10 +133,13 @@ const pluginPkg$1 = {
   devDependencies,
   peerDependencies,
   config,
-  license,
   author,
   maintainers,
-  repository
+  repository,
+  bugs,
+  keywords,
+  strapi: strapi$1,
+  license
 };
 const pluginPkg = pluginPkg$1;
 const pluginId$1 = pluginPkg.name.replace(
@@ -173,7 +180,7 @@ const adminRegister = (app) => {
     components: {
       Input: async () => Promise.resolve().then(() => require(
         /* webpackChunkName: "input-component" */
-        "./index-DXjNMdL3.js"
+        "./index-5Z327VFS.js"
       ))
     },
     options: {
@@ -188,7 +195,7 @@ var wysiwyg_field_register = {
 const wysiwyg_field_register$1 = /* @__PURE__ */ getDefaultExportFromCjs(wysiwyg_field_register);
 const index = {
   register(app) {
-    const pluginDescription = pluginPkg$1.strapi?.description || pluginPkg$1.description;
+    const pluginDescription = pluginPkg$1.strapi?.description;
     app.registerPlugin({
       blockerComponent: null,
       blockerComponentProps: {},
