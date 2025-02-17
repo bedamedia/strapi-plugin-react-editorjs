@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { g as getDefaultExportFromCjs, c as commonjsGlobal, P as PluginId, a as axios } from "./index-6F6yS5St.mjs";
+import { g as getDefaultExportFromCjs, c as commonjsGlobal, a as axios } from "./index-B8o94mJY.mjs";
 import Image from "@editorjs/image";
 import Embed from "@editorjs/embed";
 import Table from "@editorjs/table";
@@ -21,6 +21,151 @@ import cn from "classnames";
 import styled from "styled-components";
 import { Box, Typography } from "@strapi/design-system";
 import { useIntl } from "react-intl";
+const name = "strapi-plugin-react-editorjs";
+const version = "0.0.0-development";
+const description = "Plugin for Strapi Headless CMS, hiding the standard WYSIWYG editor and replacing it with Editor.js";
+const homepage = "https://market.strapi.io/plugins/strapi-plugin-react-editorjs";
+const scripts = {
+  build: "strapi-plugin build",
+  watch: "strapi-plugin watch",
+  "watch:link": "strapi-plugin watch:link",
+  verify: "strapi-plugin verify"
+};
+const type = "commonjs";
+const files = [
+  "dist"
+];
+const exports = {
+  "./package.json": "./package.json",
+  "./strapi-admin": {
+    source: "./admin/src/index.js",
+    "import": "./dist/admin/index.mjs",
+    require: "./dist/admin/index.js",
+    "default": "./dist/admin/index.js"
+  },
+  "./strapi-server": {
+    source: "./server/src/index.js",
+    "import": "./dist/server/index.mjs",
+    require: "./dist/server/index.js",
+    "default": "./dist/server/index.js"
+  }
+};
+const dependencies = {
+  "@strapi/design-system": "^2.0.0-rc.11",
+  "@strapi/icons": "^2.0.0-rc.11",
+  "@strapi/utils": "^5.1.0",
+  "react-intl": "^6.8.0",
+  "@editorjs/checklist": "1.6.0",
+  "@editorjs/code": "2.9.2",
+  "@editorjs/delimiter": "1.4.2",
+  "@editorjs/editorjs": "2.30.6",
+  "@editorjs/embed": "2.7.6",
+  "@editorjs/header": "2.8.8",
+  "@editorjs/image": "2.10.0",
+  "@editorjs/inline-code": "1.5.1",
+  "@editorjs/link": "2.6.2",
+  "@editorjs/list": "1.10.0",
+  "@editorjs/marker": "1.4.0",
+  "@editorjs/paragraph": "2.11.6",
+  "@editorjs/quote": "2.7.2",
+  "@editorjs/raw": "2.5.0",
+  "@editorjs/table": "2.4.2",
+  "@editorjs/warning": "1.4.0",
+  classnames: "^2.3.1",
+  "get-file-object-from-local-path": "1.0.2",
+  "open-graph-scraper": "4.9.2",
+  "react-editor-js": "2.1.0"
+};
+const devDependencies = {
+  "@semantic-release/changelog": "^6.0.1",
+  "@semantic-release/git": "^10.0.1",
+  "cz-conventional-changelog": "^3.3.0",
+  "semantic-release": "^19.0.2",
+  "@strapi/strapi": "^5.1.0",
+  "@strapi/sdk-plugin": "^5.2.7",
+  prettier: "^3.3.3",
+  react: "^18.3.1",
+  "react-dom": "^18.3.1",
+  "react-router-dom": "^6.27.0",
+  "styled-components": "^6.1.13"
+};
+const peerDependencies = {
+  "@strapi/strapi": "^5",
+  "@strapi/sdk-plugin": "^5",
+  react: "^18.3.1",
+  "react-dom": "^18.3.1",
+  "react-router-dom": "^6.27.0",
+  "styled-components": "^6.1.13"
+};
+const config = {
+  commitizen: {
+    path: "./node_modules/cz-conventional-changelog"
+  }
+};
+const author = {
+  name: "Matvey Melishev",
+  email: "matvey@melishev.ru",
+  url: "https://melishev.ru"
+};
+const maintainers = [
+  {
+    name: "Matvey Melishev",
+    email: "matvey@melishev.ru",
+    url: "https://melishev.ru"
+  },
+  {
+    name: "Jason Skipper",
+    url: "https://www.skipperinnovations.com"
+  }
+];
+const repository = {
+  type: "git",
+  url: "https://github.com/melishev/strapi-plugin-editor-js.git"
+};
+const bugs = {
+  url: "https://github.com/melishev/strapi-plugin-editor-js/issues"
+};
+const keywords = [
+  "strapi",
+  "plugin",
+  "editor-js",
+  "wysiwyg"
+];
+const strapi = {
+  name: "strapi-plugin-react-editorjs",
+  displayName: "editorjs",
+  description: "Integrate editorjs with strapi",
+  kind: "plugin"
+};
+const license = "MIT";
+const require$$0 = {
+  name,
+  version,
+  description,
+  homepage,
+  scripts,
+  type,
+  files,
+  exports,
+  dependencies,
+  devDependencies,
+  peerDependencies,
+  config,
+  author,
+  maintainers,
+  repository,
+  bugs,
+  keywords,
+  strapi,
+  license
+};
+const pluginPkg = require$$0;
+const pluginId = pluginPkg.name.replace(
+  /^strapi-plugin-react-/i,
+  ""
+);
+var pluginId_1 = pluginId;
+const PluginId = /* @__PURE__ */ getDefaultExportFromCjs(pluginId_1);
 var propTypes = { exports: {} };
 var reactIs = { exports: {} };
 var reactIs_production_min = {};
@@ -160,26 +305,26 @@ function requireReactIs_development() {
       var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117;
       var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118;
       var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
-      function isValidElementType(type) {
-        return typeof type === "string" || typeof type === "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+      function isValidElementType(type2) {
+        return typeof type2 === "string" || typeof type2 === "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+        type2 === REACT_FRAGMENT_TYPE || type2 === REACT_CONCURRENT_MODE_TYPE || type2 === REACT_PROFILER_TYPE || type2 === REACT_STRICT_MODE_TYPE || type2 === REACT_SUSPENSE_TYPE || type2 === REACT_SUSPENSE_LIST_TYPE || typeof type2 === "object" && type2 !== null && (type2.$$typeof === REACT_LAZY_TYPE || type2.$$typeof === REACT_MEMO_TYPE || type2.$$typeof === REACT_PROVIDER_TYPE || type2.$$typeof === REACT_CONTEXT_TYPE || type2.$$typeof === REACT_FORWARD_REF_TYPE || type2.$$typeof === REACT_FUNDAMENTAL_TYPE || type2.$$typeof === REACT_RESPONDER_TYPE || type2.$$typeof === REACT_SCOPE_TYPE || type2.$$typeof === REACT_BLOCK_TYPE);
       }
       function typeOf(object) {
         if (typeof object === "object" && object !== null) {
           var $$typeof = object.$$typeof;
           switch ($$typeof) {
             case REACT_ELEMENT_TYPE:
-              var type = object.type;
-              switch (type) {
+              var type2 = object.type;
+              switch (type2) {
                 case REACT_ASYNC_MODE_TYPE:
                 case REACT_CONCURRENT_MODE_TYPE:
                 case REACT_FRAGMENT_TYPE:
                 case REACT_PROFILER_TYPE:
                 case REACT_STRICT_MODE_TYPE:
                 case REACT_SUSPENSE_TYPE:
-                  return type;
+                  return type2;
                 default:
-                  var $$typeofType = type && type.$$typeof;
+                  var $$typeofType = type2 && type2.$$typeof;
                   switch ($$typeofType) {
                     case REACT_CONTEXT_TYPE:
                     case REACT_FORWARD_REF_TYPE:
@@ -660,8 +805,8 @@ function requireFactoryWithTypeCheckers() {
           }
         }
         var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-          var type = getPreciseType(value);
-          if (type === "symbol") {
+          var type2 = getPreciseType(value);
+          if (type2 === "symbol") {
             return String(value);
           }
           return value;
@@ -732,9 +877,9 @@ function requireFactoryWithTypeCheckers() {
       }
       return createChainableTypeChecker(validate);
     }
-    function invalidValidatorError(componentName, location, propFullName, key, type) {
+    function invalidValidatorError(componentName, location, propFullName, key, type2) {
       return new PropTypeError(
-        (componentName || "React class") + ": " + location + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`."
+        (componentName || "React class") + ": " + location + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type2 + "`."
       );
     }
     function createShapeTypeChecker(shapeTypes) {
@@ -871,17 +1016,17 @@ function requireFactoryWithTypeCheckers() {
       return propType;
     }
     function getPostfixForTypeWarning(value) {
-      var type = getPreciseType(value);
-      switch (type) {
+      var type2 = getPreciseType(value);
+      switch (type2) {
         case "array":
         case "object":
-          return "an " + type;
+          return "an " + type2;
         case "boolean":
         case "date":
         case "regexp":
-          return "a " + type;
+          return "a " + type2;
         default:
-          return type;
+          return type2;
       }
     }
     function getClassName(propValue) {
@@ -970,7 +1115,7 @@ var lodash = { exports: {} };
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  */
 lodash.exports;
-(function(module, exports) {
+(function(module, exports2) {
   (function() {
     var undefined$1;
     var VERSION = "4.17.21";
@@ -1298,7 +1443,7 @@ lodash.exports;
     var freeGlobal = typeof commonjsGlobal == "object" && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
     var freeSelf = typeof self == "object" && self && self.Object === Object && self;
     var root = freeGlobal || freeSelf || Function("return this")();
-    var freeExports = exports && !exports.nodeType && exports;
+    var freeExports = exports2 && !exports2.nodeType && exports2;
     var freeModule = freeExports && true && module && !module.nodeType && module;
     var moduleExports = freeModule && freeModule.exports === freeExports;
     var freeProcess = moduleExports && freeGlobal.process;
@@ -1817,11 +1962,11 @@ lodash.exports;
             index += dir;
             var iterIndex = -1, value = array[index];
             while (++iterIndex < iterLength) {
-              var data = iteratees[iterIndex], iteratee2 = data.iteratee, type = data.type, computed = iteratee2(value);
-              if (type == LAZY_MAP_FLAG) {
+              var data = iteratees[iterIndex], iteratee2 = data.iteratee, type2 = data.type, computed = iteratee2(value);
+              if (type2 == LAZY_MAP_FLAG) {
                 value = computed;
               } else if (!computed) {
-                if (type == LAZY_FILTER_FLAG) {
+                if (type2 == LAZY_FILTER_FLAG) {
                   continue outer;
                 } else {
                   break outer;
@@ -3862,16 +4007,16 @@ lodash.exports;
         return isArray(value) || isArguments(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
       }
       function isIndex(value, length) {
-        var type = typeof value;
+        var type2 = typeof value;
         length = length == null ? MAX_SAFE_INTEGER : length;
-        return !!length && (type == "number" || type != "symbol" && reIsUint.test(value)) && (value > -1 && value % 1 == 0 && value < length);
+        return !!length && (type2 == "number" || type2 != "symbol" && reIsUint.test(value)) && (value > -1 && value % 1 == 0 && value < length);
       }
       function isIterateeCall(value, index, object) {
         if (!isObject(object)) {
           return false;
         }
-        var type = typeof index;
-        if (type == "number" ? isArrayLike(object) && isIndex(index, object.length) : type == "string" && index in object) {
+        var type2 = typeof index;
+        if (type2 == "number" ? isArrayLike(object) && isIndex(index, object.length) : type2 == "string" && index in object) {
           return eq(object[index], value);
         }
         return false;
@@ -3880,15 +4025,15 @@ lodash.exports;
         if (isArray(value)) {
           return false;
         }
-        var type = typeof value;
-        if (type == "number" || type == "symbol" || type == "boolean" || value == null || isSymbol(value)) {
+        var type2 = typeof value;
+        if (type2 == "number" || type2 == "symbol" || type2 == "boolean" || value == null || isSymbol(value)) {
           return true;
         }
         return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object2(object);
       }
       function isKeyable(value) {
-        var type = typeof value;
-        return type == "string" || type == "number" || type == "symbol" || type == "boolean" ? value !== "__proto__" : value === null;
+        var type2 = typeof value;
+        return type2 == "string" || type2 == "number" || type2 == "symbol" || type2 == "boolean" ? value !== "__proto__" : value === null;
       }
       function isLaziable(func) {
         var funcName = getFuncName(func), other = lodash2[funcName];
@@ -5083,8 +5228,8 @@ lodash.exports;
         return typeof value == "number" && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
       }
       function isObject(value) {
-        var type = typeof value;
-        return value != null && (type == "object" || type == "function");
+        var type2 = typeof value;
+        return value != null && (type2 == "object" || type2 == "function");
       }
       function isObjectLike(value) {
         return value != null && typeof value == "object";
@@ -6295,12 +6440,12 @@ lodash.exports;
         };
       });
       arrayEach(["filter", "map", "takeWhile"], function(methodName, index) {
-        var type = index + 1, isFilter = type == LAZY_FILTER_FLAG || type == LAZY_WHILE_FLAG;
+        var type2 = index + 1, isFilter = type2 == LAZY_FILTER_FLAG || type2 == LAZY_WHILE_FLAG;
         LazyWrapper.prototype[methodName] = function(iteratee2) {
           var result2 = this.clone();
           result2.__iteratees__.push({
             "iteratee": getIteratee(iteratee2, 3),
-            "type": type
+            "type": type2
           });
           result2.__filtered__ = result2.__filtered__ || isFilter;
           return result2;
@@ -6706,12 +6851,12 @@ class SelectionUtils {
   }
 }
 class Hyperlink {
-  constructor({ data, config, api, readOnly }) {
+  constructor({ data, config: config2, api, readOnly }) {
     this.toolbar = api.toolbar;
     this.inlineToolbar = api.inlineToolbar;
     this.tooltip = api.tooltip;
     this.i18n = api.i18n;
-    this.config = config;
+    this.config = config2;
     this.selection = new SelectionUtils();
     this.commandLink = "createLink";
     this.commandUnlink = "unlink";
@@ -7017,9 +7162,9 @@ class Hyperlink {
   unlink() {
     document.execCommand(this.commandUnlink);
   }
-  iconSvg(name, width = 14, height = 14) {
+  iconSvg(name2, width = 14, height = 14) {
     const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    icon.classList.add("icon", "icon--" + name);
+    icon.classList.add("icon", "icon--" + name2);
     icon.setAttribute("width", width + "px");
     icon.setAttribute("height", height + "px");
     icon.innerHTML = `<svg width="14px" height="14px" viewBox="0 -4 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7109,9 +7254,9 @@ class MediaLibAdapter {
       icon: '<svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 336 276"><path d="M291 150.242V79c0-18.778-15.222-34-34-34H79c-18.778 0-34 15.222-34 34v42.264l67.179-44.192 80.398 71.614 56.686-29.14L291 150.242zm-.345 51.622l-42.3-30.246-56.3 29.884-80.773-66.925L45 174.187V197c0 18.778 15.222 34 34 34h178c17.126 0 31.295-12.663 33.655-29.136zM79 0h178c43.63 0 79 35.37 79 79v118c0 43.63-35.37 79-79 79H79c-43.63 0-79-35.37-79-79V79C0 35.37 35.37 0 79 0z"/></svg>'
     };
   }
-  constructor({ api, config, data }) {
+  constructor({ api, config: config2, data }) {
     this.api = api;
-    this.config = config || {};
+    this.config = config2 || {};
     this.file = data?.file;
   }
   render() {
@@ -7158,10 +7303,10 @@ class MediaLibAdapter {
     wraper.appendChild(selectButton);
     selectButton.addEventListener("click", () => {
       this.api.blocks.getCurrentBlockIndex();
-      this.config.onBlockClicked((files) => {
-        if (!files || !files.length) return;
-        this.file = files[0];
-        imageEl.src = this.getPreviewImage(files[0]);
+      this.config.onBlockClicked((files2) => {
+        if (!files2 || !files2.length) return;
+        this.file = files2[0];
+        imageEl.src = this.getPreviewImage(files2[0]);
         if (imageEl.style.display === "none") {
           imageEl.style.display = "block";
         }
@@ -7236,8 +7381,8 @@ const MediaLibComponent = ({ isOpen, onChange, onToggle }) => {
       setData(data2);
     }
   };
-  const handleSelectAssets = (files) => {
-    const formattedFiles = files.map((f) => ({
+  const handleSelectAssets = (files2) => {
+    const formattedFiles = files2.map((f) => ({
       alt: f.alternativeText || f.name,
       url: prefixFileUrlWithBackendUrl(f.url),
       width: f.width,
@@ -7353,7 +7498,7 @@ function ReactEditorJS(_a) {
 }
 class ClientEditorCore {
   constructor(_a) {
-    var { tools } = _a, config = __rest(_a, ["tools"]);
+    var { tools } = _a, config2 = __rest(_a, ["tools"]);
     const extendTools = Object.assign({
       // default tools
       paragraph: {
@@ -7361,7 +7506,7 @@ class ClientEditorCore {
         inlineToolbar: true
       }
     }, tools);
-    this._editorJS = new EditorJS(Object.assign({ tools: extendTools }, config));
+    this._editorJS = new EditorJS(Object.assign({ tools: extendTools }, config2));
   }
   get dangerouslyLowLevelInstance() {
     return this._editorJS;
@@ -7389,7 +7534,7 @@ class ClientEditorCore {
   }
 }
 function ReactEditorJSClient(props) {
-  const factory = React.useCallback((config) => new ClientEditorCore(config), []);
+  const factory = React.useCallback((config2) => new ClientEditorCore(config2), []);
   return React.createElement(ReactEditorJS, Object.assign({ factory }, props));
 }
 const getValue = (value) => {
@@ -7400,7 +7545,7 @@ const getValue = (value) => {
   }
 };
 const holder = "react-editor-js-194f96947e1";
-const Editor = ({ onChange, name, value }) => {
+const Editor = ({ onChange, name: name2, value }) => {
   const [editorInstance, setEditorInstance] = useState();
   const [mediaLibBlockIndex, setMediaLibBlockIndex] = useState(-1);
   const [isMediaLibOpen, setIsMediaLibOpen] = useState(false);
@@ -7473,7 +7618,7 @@ const Editor = ({ onChange, name, value }) => {
         defaultValue: getValue(value),
         onChange: async (...args) => {
           const savedData = await editorCore.current.save();
-          onChange({ target: { name, value: JSON.stringify(savedData) } });
+          onChange({ target: { name: name2, value: JSON.stringify(savedData) } });
         },
         tools: {
           ...requiredTools({ token }),
@@ -7565,10 +7710,10 @@ const Wrapper = styled(Box)`
   }
 `;
 const Wysiwyg = ({
-  name,
+  name: name2,
   className,
   error,
-  description,
+  description: description2,
   label,
   required,
   onChange,
@@ -7590,12 +7735,12 @@ const Wysiwyg = ({
       {
         onChange,
         value,
-        name,
+        name: name2,
         disabled
       }
     ),
     error && /* @__PURE__ */ React.createElement(Typography, { variant: "pi", textColor: "danger600" }, formatMessage({ id: error, defaultMessage: error })),
-    description && /* @__PURE__ */ React.createElement(Typography, { variant: "pi" }, formatMessage(description))
+    description2 && /* @__PURE__ */ React.createElement(Typography, { variant: "pi" }, formatMessage(description2))
   );
 };
 export {

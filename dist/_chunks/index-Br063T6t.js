@@ -2,7 +2,7 @@
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
 const React = require("react");
-const index = require("./index-o7HCCnTA.js");
+const index = require("./index-Czg_PvkS.js");
 const Image = require("@editorjs/image");
 const Embed = require("@editorjs/embed");
 const Table = require("@editorjs/table");
