@@ -29,6 +29,7 @@ const MediaLibComponent = ({ isOpen, onChange, onToggle }) => {
       size: f.size,
       mime: f.mime,
       formats: f.formats,
+      name: f.name,
     }));
     onChange(formattedFiles);
   };

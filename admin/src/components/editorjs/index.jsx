@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import getRequiredTools from "./requiredTools";
 import customTools from "../../config/customTools";
@@ -8,7 +8,7 @@ import { changeFunc, getToggleFunc } from "../medialib/utils";
 import { useAuth } from "@strapi/strapi/admin";
 // import EditorJs from "react-editor-js";
 import EditorJs from "@react-editor-js/client";
-
+import { isEqual } from "lodash";
 const getValue = (value) => {
   try {
     return JSON.parse(value);
@@ -17,10 +17,14 @@ const getValue = (value) => {
   }
 };
 const holder = "react-editor-js-194f96947e1";
-const Editor = ({ onChange, name, value }) => {
+const Editor = ({ locale, onChange, name, value }) => {
   const [editorInstance, setEditorInstance] = useState();
   const [mediaLibBlockIndex, setMediaLibBlockIndex] = useState(-1);
   const [isMediaLibOpen, setIsMediaLibOpen] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [didRerender, setDidReRender] = useState(false);
+  const editorValueRef = React.useRef(value);
+
   const token =
     JSON.parse(localStorage.getItem("jwtToken")) ||
     JSON.parse(sessionStorage.getItem("jwtToken"));
@@ -92,6 +96,21 @@ const Editor = ({ onChange, name, value }) => {
     },
   };
 
+  useEffect(() => {
+    const changed = !isEqual(editorValueRef.current, value);
+    console.log({ changed, isReady, shouldNotReRender: didRerender });
+    if (isReady && !didRerender && changed) {
+      console.log("🚀 ~ useEffect ~ setShouldReRender:");
+      editorValueRef.current = value;
+      editorCore.current.render(getValue(value));
+      setDidReRender(true);
+    }
+  }, [value, isReady]);
+
+  useEffect(() => {
+    setDidReRender(false);
+  }, [locale]);
+
   return (
     <>
       <div
@@ -115,17 +134,9 @@ const Editor = ({ onChange, name, value }) => {
             ...customImageTool,
           }}
           onInitialize={handleInitialize}
-          // factory={(config) => {
-          //   console.log("from config", config);
-          //   return config;
-          //   return {
-          //     ...config,
-
-          //     // style: {
-          //     //   color: "black",
-          //     // },
-          //   };
-          // }}
+          onReady={() => {
+            setIsReady(true);
+          }}
         />
       </div>
       <MediaLibComponent

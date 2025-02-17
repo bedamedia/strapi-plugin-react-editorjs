@@ -23,6 +23,9 @@ const Wysiwyg = ({
   disabled,
 }) => {
   const { formatMessage } = useIntl();
+	const locale =
+    new URLSearchParams(window.location.search).get("plugins[i18n][locale]") ??
+    "default";
 
   return (
     <Wrapper
@@ -41,6 +44,7 @@ const Wysiwyg = ({
         )}
       </Box>
       <Editor
+        locale={locale}
         onChange={onChange}
         value={value}
         name={name}
