@@ -3,7 +3,7 @@ const name = "wysiwyg";
 const type = "richtext";
 
 const pluginId = "editorjs";
-const serverRegister = () => {
+const serverRegister = ({ strapi }) => {
   strapi.customFields.register({
     name,
     plugin: pluginId,

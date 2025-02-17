@@ -11,6 +11,6 @@ module.exports = {
   routes,
   controllers,
   register({ strapi }) {
-    wysiwyg_field_register.serverRegister();
+    wysiwyg_field_register.serverRegister({ strapi });
   },
 };
