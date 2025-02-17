@@ -9,25 +9,14 @@ export default {
     const pluginDescription =
       pluginPkg.strapi?.description || pluginPkg.description;
 
+    const name = pluginPkg.strap?.name ?? pluginPkg.name;
+    console.log("🚀 ~ register ~ name:", name);
+
     app.registerPlugin({
-      blockerComponent: null,
-      blockerComponentProps: {},
-      description: pluginDescription,
-      icon: pluginPkg.strapi?.icon ?? pluginPkg.icon,
-      intlLabel: {
-        id: pluginId,
-        defaultMessage: pluginId,
-      },
       id: pluginId,
       initializer: () => null,
-      injectedComponents: [],
-      isReady: true,
-      isRequired: pluginPkg.strapi?.required || false,
-      mainComponent: null,
-      name: pluginPkg.strap?.name ?? pluginPkg.name,
-      preventComponentRendering: false,
-      settings: null,
-      trads: {},
+      isReady: false,
+      name,
     });
 
     wysiwyg_field_register.adminRegister(app);
