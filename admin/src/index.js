@@ -10,7 +10,7 @@ export default {
     const pluginDescription =
       pluginPkg.strapi?.description || pluginPkg.description;
 
-    const name = pluginPkg.strap?.name ?? pluginPkg.name;
+    const name = pluginPkg.strapi?.name ?? pluginPkg.name;
 
     app.registerPlugin({
       id: pluginId,
