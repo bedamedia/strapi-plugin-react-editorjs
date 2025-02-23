@@ -14,7 +14,7 @@ export default {
 
     app.registerPlugin({
       id: pluginId,
-      initializer: Initializer,
+      initializer: () => null,
       name,
     });
 
