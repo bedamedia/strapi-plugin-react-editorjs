@@ -2,53 +2,47 @@ import React, {useState} from 'react';
 import {prefixFileUrlWithBackendUrl, useLibrary} from '@strapi/helper-plugin';
 import PropTypes from 'prop-types';
 
-const MediaLibComponent = ({isOpen, onChange, onToggle}) => {
- 
-  const { components } = useLibrary();
-  const [data, setData] = useState(null);
+const MediaLibComponent = ({ isOpen = false, onChange, onToggle }) => {
+	const { components } = useLibrary()
+	const [data, setData] = useState(null)
 
-  const MediaLibraryDialog = components['media-library'];
+	const MediaLibraryDialog = components['media-library']
 
-  const handleInputChange = data => {
-    if (data) {
-      setData(data);
-    }
-  };
+	const handleInputChange = (data) => {
+		if (data) {
+			setData(data)
+		}
+	}
 
-  const handleSelectAssets = files => {
-    const formattedFiles = files.map((f) => ({
-      alt: f.alternativeText || f.name,
-      url: prefixFileUrlWithBackendUrl(f.url),
-      width: f.width,
-      height: f.height,
-      size: f.size,
-      mime: f.mime,
-      name: f.name,
-      formats: f.formats,
-    }));
-    onChange(formattedFiles);
-  };
+	const handleSelectAssets = (files) => {
+		const formattedFiles = files.map((f) => ({
+			alt: f.alternativeText || f.name,
+			url: prefixFileUrlWithBackendUrl(f.url),
+			width: f.width,
+			height: f.height,
+			size: f.size,
+			mime: f.mime,
+			name: f.name,
+			formats: f.formats,
+		}))
+		onChange(formattedFiles)
+	}
 
-  if(!isOpen) {
-    return null;
-  }
+	if (!isOpen) {
+		return null
+	}
 
-  return (
-    <MediaLibraryDialog
-      // allowedTypes={['images']}
-      onClose={onToggle}
-      onInputMediaChange={handleInputChange}
-      onSelectAssets={handleSelectAssets}
-    />
-  );
+	return (
+		<MediaLibraryDialog
+			// allowedTypes={['images']}
+			onClose={onToggle}
+			onInputMediaChange={handleInputChange}
+			onSelectAssets={handleSelectAssets}
+		/>
+	)
+}
 
-};
 
-MediaLibComponent.defaultProps = {
-  isOpen: false,
-  onChange: () => {},
-  onToggle: () => {},
-};
 
 MediaLibComponent.propTypes = {
   isOpen: PropTypes.bool,

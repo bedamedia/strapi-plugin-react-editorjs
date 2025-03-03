@@ -8,7 +8,20 @@ import { useIntl } from 'react-intl'
 import { Box } from '@strapi/design-system/Box'
 import { Typography } from '@strapi/design-system/Typography'
 
-const Wysiwyg = ({ name, className, error, description, intlLabel, required, onChange, style, value, disabled, ...other }) => {
+const Wysiwyg = ({
+	name,
+	className = '',
+	error = undefined,
+	description = '',
+	intlLabel = '',
+	required = false,
+	onChange,
+	style = {},
+	value = '',
+	disabled = false,
+	tabIndex = '0',
+	...other
+}) => {
 	const { formatMessage } = useIntl()
 	const locale = new URLSearchParams(window.location.search).get('plugins[i18n][locale]') ?? 'default'
 	const editorHolder = `editor-${locale}`
@@ -34,19 +47,6 @@ const Wysiwyg = ({ name, className, error, description, intlLabel, required, onC
 			{description && <Typography variant="pi">{formatMessage(description)}</Typography>}
 		</Wrapper>
 	)
-}
-
-Wysiwyg.defaultProps = {
-	className: '',
-	style: {},
-	tabIndex: '0',
-	value: null,
-	description: '',
-	disabled: false,
-	error: undefined,
-	intlLabel: '',
-	required: false,
-	value: '',
 }
 
 Wysiwyg.propTypes = {
