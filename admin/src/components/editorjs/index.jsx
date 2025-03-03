@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import getRequiredTools from "./requiredTools";
 import customTools from "../../config/customTools";
@@ -16,8 +16,9 @@ const getValue = (value) => {
     return {};
   }
 };
-const holder = "react-editor-js-194f96947e1";
 const Editor = ({ locale, onChange, name, value }) => {
+  const holder = `react-editor-js-${name}`;
+
   const [editorInstance, setEditorInstance] = useState();
   const [mediaLibBlockIndex, setMediaLibBlockIndex] = useState(-1);
   const [isMediaLibOpen, setIsMediaLibOpen] = useState(false);
