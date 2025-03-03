@@ -17,8 +17,10 @@ const getValue = (value) => {
   }
 };
 const Editor = ({ locale, onChange, name, value }) => {
-  const holder = `react-editor-js-${name}`;
-
+  const holder = useMemo(
+    () => `react-editor-js-${name}-${Math.floor(Math.random() * 1000)}`,
+    [name],
+  );
   const [editorInstance, setEditorInstance] = useState();
   const [mediaLibBlockIndex, setMediaLibBlockIndex] = useState(-1);
   const [isMediaLibOpen, setIsMediaLibOpen] = useState(false);
