@@ -72,6 +72,7 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 				}}
 			>
 				<EditorJs
+					holder={`react-editor-js-${name}-${Math.floor(Math.random() * 1000)}`}
 					defaultValue={getValue(value)}
 					onChange={async (...args) => {
 						const savedData = await editorCore.current.save()
