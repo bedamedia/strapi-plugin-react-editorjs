@@ -6,7 +6,7 @@ import MediaLibAdapter from '../medialib/adapter'
 import MediaLibComponent from '../medialib/component'
 import { changeFunc, getToggleFunc } from '../medialib/utils'
 import { createReactEditorJS } from 'react-editor-js'
-import { isEqual } from 'lodash'
+import { difference, isEqual } from 'lodash'
 const EditorJs = createReactEditorJS()
 
 const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
@@ -14,7 +14,11 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 	const [mediaLibBlockIndex, setMediaLibBlockIndex] = useState(-1)
 	const [isMediaLibOpen, setIsMediaLibOpen] = useState(false)
 	const [isReady, setIsReady] = useState(false)
-	const [shouldReRender, setShouldReRender] = useState(false)
+	const [shouldReRender, _setShouldReRender] = useState(false)
+	const setShouldReRender = (...args) => {
+		console.log('setShouldReRender called with args:', args)
+		_setShouldReRender(...args)
+	}
 
 	const editorCore = React.useRef(null)
 	const editorValueRef = React.useRef(value)
@@ -56,6 +60,7 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 
 	useEffect(() => {
 		if (isReady && !shouldReRender && !isEqual(editorValueRef.current, value)) {
+			console.log('rerendering editor with new value:', value)
 			editorValueRef.current = value
 			editorCore.current.render(getValue(value))
 			setShouldReRender(true)
@@ -71,13 +76,29 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 					marginTop: `4px`,
 				}}
 			>
+				<p style={{ color: 'white' }}>Locale: {locale}</p>
 				<EditorJs
 					holder={`react-editor-js-${name}-${Math.floor(Math.random() * 1000)}`}
+					// holder={`react-editor-js-${name}`}
 					defaultValue={getValue(value)}
 					onChange={async (...args) => {
-						const savedData = await editorCore.current.save()
-						// console.log("🚀 ~ onChange={ ~ savedData:", savedData);
-						onChange({ target: { name, value: JSON.stringify(savedData) } })
+						console.log('EditorJs onChange called')
+						// console.log('should save', args)
+						try {
+							const savedData = await editorCore.current.save()
+							// console.log('default value', getValue(value))
+							// console.log('savedData', savedData)
+							// check if there's any change
+							if (isEqual(savedData.blocks, getValue(value).blocks)) {
+								console.log('no change')
+								return
+							} else {
+								console.log('change detected')
+								onChange({ target: { name, value: JSON.stringify(savedData) } })
+							}
+						} catch (err) {
+							console.error('Error saving editor data:', err)
+						}
 					}}
 					tools={{
 						...requiredTools,
@@ -91,6 +112,22 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 					}}
 				/>
 			</div>
+			{/* <button
+				type="button"
+				onClick={async () => {
+					editorCore.current.render(getValue(value))
+				}}
+			>
+				rerender
+			</button>
+			<button
+				type="button"
+				onClick={async () => {
+					console.log('default value', getValue(value))
+				}}
+			>
+				print default value
+			</button> */}
 			<MediaLibComponent isOpen={isMediaLibOpen} onChange={handleMediaLibChange} onToggle={mediaLibToggleFunc} />
 		</>
 	)
