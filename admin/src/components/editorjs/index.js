@@ -59,11 +59,17 @@ const Editor = ({ locale, onChange, name, value, ...otherProps }) => {
 	}
 
 	useEffect(() => {
-		if (isReady && !shouldReRender && !isEqual(editorValueRef.current, value)) {
-			console.log('rerendering editor with new value:', value)
-			editorValueRef.current = value
-			editorCore.current.render(getValue(value))
-			setShouldReRender(true)
+		try {
+			if (value && isReady && !shouldReRender && !isEqual(editorValueRef.current?.blocks, getValue(value).blocks)) {
+				// console.log('rerendering editor with new value:')
+				editorValueRef.current = value
+				editorCore.current.render(getValue(value))
+				setShouldReRender(true)
+			} else {
+				// console.log('no need to rerender editor')
+			}
+		} catch (err) {
+			console.error('Error re-rendering editor:', err)
 		}
 	}, [value, isReady])
 
