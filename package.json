@@ -67,7 +67,7 @@
     "semantic-release": "^19.0.2"
   },
   "engines": {
-    "node": ">=10.16.0 <=16.x.x",
+    "node": ">=16 <=20",
     "npm": ">=6.0.0"
   },
   "strapi": {
