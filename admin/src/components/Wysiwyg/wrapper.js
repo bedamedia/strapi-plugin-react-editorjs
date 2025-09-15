@@ -10,7 +10,6 @@ const Wrapper = styled(Box)`
   .codex-editor {
     padding: 16px;
     font-size: 1rem;
-    background: #fff;
   }
   *:focus-visible {
     outline: none;
