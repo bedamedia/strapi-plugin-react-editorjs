@@ -7,7 +7,7 @@ function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
 }
 var editorjs$3 = ({
-  strapi
+  strapi: strapi2
 }) => {
   return {};
 };
@@ -429,7 +429,7 @@ var utils$1 = {
   setImmediate: _setImmediate,
   asap
 };
-function AxiosError(message, code, config, request, response) {
+function AxiosError(message, code, config2, request, response) {
   Error.call(this);
   if (Error.captureStackTrace) {
     Error.captureStackTrace(this, this.constructor);
@@ -439,7 +439,7 @@ function AxiosError(message, code, config, request, response) {
   this.message = message;
   this.name = "AxiosError";
   code && (this.code = code);
-  config && (this.config = config);
+  config2 && (this.config = config2);
   request && (this.request = request);
   response && (this.response = response);
 }
@@ -485,14 +485,14 @@ const descriptors = {};
 });
 Object.defineProperties(AxiosError, descriptors);
 Object.defineProperty(prototype$1, "isAxiosError", { value: true });
-AxiosError.from = (error, code, config, request, response, customProps) => {
+AxiosError.from = (error, code, config2, request, response, customProps) => {
   const axiosError = Object.create(prototype$1);
   utils$1.toFlatObject(error, axiosError, function filter2(obj) {
     return obj !== Error.prototype;
   }, (prop) => {
     return prop !== "isAxiosError";
   });
-  AxiosError.call(axiosError, error.message, code, config, request, response);
+  AxiosError.call(axiosError, error.message, code, config2, request, response);
   axiosError.cause = error;
   axiosError.name = error.name;
   customProps && Object.assign(axiosError, customProps);
@@ -833,7 +833,7 @@ function stringifySafely(rawValue, parser, encoder) {
       }
     }
   }
-  return (encoder || JSON.stringify)(rawValue);
+  return (0, JSON.stringify)(rawValue);
 }
 const defaults = {
   transitional: transitionalDefaults,
@@ -1192,12 +1192,12 @@ utils$1.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
 utils$1.freezeMethods(AxiosHeaders);
 var AxiosHeaders$1 = AxiosHeaders;
 function transformData(fns, response) {
-  const config = this || defaults$1;
-  const context = response || config;
+  const config2 = this || defaults$1;
+  const context = response || config2;
   const headers = AxiosHeaders$1.from(context.headers);
   let data = context.data;
   utils$1.forEach(fns, function transform(fn) {
-    data = fn.call(config, data, headers.normalize(), response ? response.status : void 0);
+    data = fn.call(config2, data, headers.normalize(), response ? response.status : void 0);
   });
   headers.normalize();
   return data;
@@ -1205,8 +1205,8 @@ function transformData(fns, response) {
 function isCancel(value) {
   return !!(value && value.__CANCEL__);
 }
-function CanceledError(message, config, request) {
-  AxiosError.call(this, message == null ? "canceled" : message, AxiosError.ERR_CANCELED, config, request);
+function CanceledError(message, config2, request) {
+  AxiosError.call(this, message == null ? "canceled" : message, AxiosError.ERR_CANCELED, config2, request);
   this.name = "CanceledError";
 }
 utils$1.inherits(CanceledError, AxiosError, {
@@ -1413,7 +1413,7 @@ function buildFullPath(baseURL, requestedURL) {
 const headersToObject = (thing) => thing instanceof AxiosHeaders$1 ? { ...thing } : thing;
 function mergeConfig(config1, config2) {
   config2 = config2 || {};
-  const config = {};
+  const config3 = {};
   function getMergedValue(target, source, caseless) {
     if (utils$1.isPlainObject(target) && utils$1.isPlainObject(source)) {
       return utils$1.merge.call({ caseless }, target, source);
@@ -1484,15 +1484,15 @@ function mergeConfig(config1, config2) {
   utils$1.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
     const merge2 = mergeMap[prop] || mergeDeepProperties;
     const configValue = merge2(config1[prop], config2[prop], prop);
-    utils$1.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config[prop] = configValue);
+    utils$1.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config3[prop] = configValue);
   });
-  return config;
+  return config3;
 }
-var resolveConfig = (config) => {
-  const newConfig = mergeConfig({}, config);
+var resolveConfig = (config2) => {
+  const newConfig = mergeConfig({}, config2);
   let { data, withXSRFToken, xsrfHeaderName, xsrfCookieName, headers, auth } = newConfig;
   newConfig.headers = headers = AxiosHeaders$1.from(headers);
-  newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url), config.params, config.paramsSerializer);
+  newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url), config2.params, config2.paramsSerializer);
   if (auth) {
     headers.set(
       "Authorization",
@@ -1520,9 +1520,9 @@ var resolveConfig = (config) => {
   return newConfig;
 };
 const isXHRAdapterSupported = typeof XMLHttpRequest !== "undefined";
-var xhrAdapter = isXHRAdapterSupported && function(config) {
+var xhrAdapter = isXHRAdapterSupported && function(config2) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
-    const _config = resolveConfig(config);
+    const _config = resolveConfig(config2);
     let requestData = _config.data;
     const requestHeaders = AxiosHeaders$1.from(_config.headers).normalize();
     let { responseType, onUploadProgress, onDownloadProgress } = _config;
@@ -1551,7 +1551,7 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
         status: request.status,
         statusText: request.statusText,
         headers: responseHeaders,
-        config,
+        config: config2,
         request
       };
       settle(function _resolve(value) {
@@ -1580,11 +1580,11 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
       if (!request) {
         return;
       }
-      reject(new AxiosError("Request aborted", AxiosError.ECONNABORTED, config, request));
+      reject(new AxiosError("Request aborted", AxiosError.ECONNABORTED, config2, request));
       request = null;
     };
     request.onerror = function handleError() {
-      reject(new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request));
+      reject(new AxiosError("Network Error", AxiosError.ERR_NETWORK, config2, request));
       request = null;
     };
     request.ontimeout = function handleTimeout() {
@@ -1596,7 +1596,7 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
       reject(new AxiosError(
         timeoutErrorMessage,
         transitional2.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
-        config,
+        config2,
         request
       ));
       request = null;
@@ -1627,7 +1627,7 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
         if (!request) {
           return;
         }
-        reject(!cancel || cancel.type ? new CanceledError(null, config, request) : cancel);
+        reject(!cancel || cancel.type ? new CanceledError(null, config2, request) : cancel);
         request.abort();
         request = null;
       };
@@ -1638,7 +1638,7 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
     }
     const protocol = parseProtocol(_config.url);
     if (protocol && platform.protocols.indexOf(protocol) === -1) {
-      reject(new AxiosError("Unsupported protocol " + protocol + ":", AxiosError.ERR_BAD_REQUEST, config));
+      reject(new AxiosError("Unsupported protocol " + protocol + ":", AxiosError.ERR_BAD_REQUEST, config2));
       return;
     }
     request.send(requestData || null);
@@ -1763,8 +1763,8 @@ const resolvers = {
 };
 isFetchSupported && ((res) => {
   ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((type2) => {
-    !resolvers[type2] && (resolvers[type2] = utils$1.isFunction(res[type2]) ? (res2) => res2[type2]() : (_, config) => {
-      throw new AxiosError(`Response type '${type2}' is not supported`, AxiosError.ERR_NOT_SUPPORT, config);
+    !resolvers[type2] && (resolvers[type2] = utils$1.isFunction(res[type2]) ? (res2) => res2[type2]() : (_, config2) => {
+      throw new AxiosError(`Response type '${type2}' is not supported`, AxiosError.ERR_NOT_SUPPORT, config2);
     });
   });
 })(new Response());
@@ -1792,7 +1792,7 @@ const resolveBodyLength = async (headers, body) => {
   const length = utils$1.toFiniteNumber(headers.getContentLength());
   return length == null ? getBodyLength(body) : length;
 };
-var fetchAdapter = isFetchSupported && (async (config) => {
+var fetchAdapter = isFetchSupported && (async (config2) => {
   let {
     url,
     method,
@@ -1806,7 +1806,7 @@ var fetchAdapter = isFetchSupported && (async (config) => {
     headers,
     withCredentials = "same-origin",
     fetchOptions
-  } = resolveConfig(config);
+  } = resolveConfig(config2);
   responseType = responseType ? (responseType + "").toLowerCase() : "text";
   let [composedSignal, stopTimeout] = signal || cancelToken || timeout ? composeSignals$1([signal, cancelToken], timeout) : [];
   let finished, request;
@@ -1869,7 +1869,7 @@ var fetchAdapter = isFetchSupported && (async (config) => {
       );
     }
     responseType = responseType || "text";
-    let responseData = await resolvers[utils$1.findKey(resolvers, responseType) || "text"](response, config);
+    let responseData = await resolvers[utils$1.findKey(resolvers, responseType) || "text"](response, config2);
     !isStreamResponse && onFinish();
     stopTimeout && stopTimeout();
     return await new Promise((resolve, reject) => {
@@ -1878,7 +1878,7 @@ var fetchAdapter = isFetchSupported && (async (config) => {
         headers: AxiosHeaders$1.from(response.headers),
         status: response.status,
         statusText: response.statusText,
-        config,
+        config: config2,
         request
       });
     });
@@ -1886,13 +1886,13 @@ var fetchAdapter = isFetchSupported && (async (config) => {
     onFinish();
     if (err && err.name === "TypeError" && /fetch/i.test(err.message)) {
       throw Object.assign(
-        new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request),
+        new AxiosError("Network Error", AxiosError.ERR_NETWORK, config2, request),
         {
           cause: err.cause || err
         }
       );
     }
-    throw AxiosError.from(err, err && err.code, config, request);
+    throw AxiosError.from(err, err && err.code, config2, request);
   }
 });
 const knownAdapters = {
@@ -1947,41 +1947,41 @@ var adapters = {
   },
   adapters: knownAdapters
 };
-function throwIfCancellationRequested(config) {
-  if (config.cancelToken) {
-    config.cancelToken.throwIfRequested();
+function throwIfCancellationRequested(config2) {
+  if (config2.cancelToken) {
+    config2.cancelToken.throwIfRequested();
   }
-  if (config.signal && config.signal.aborted) {
-    throw new CanceledError(null, config);
+  if (config2.signal && config2.signal.aborted) {
+    throw new CanceledError(null, config2);
   }
 }
-function dispatchRequest(config) {
-  throwIfCancellationRequested(config);
-  config.headers = AxiosHeaders$1.from(config.headers);
-  config.data = transformData.call(
-    config,
-    config.transformRequest
+function dispatchRequest(config2) {
+  throwIfCancellationRequested(config2);
+  config2.headers = AxiosHeaders$1.from(config2.headers);
+  config2.data = transformData.call(
+    config2,
+    config2.transformRequest
   );
-  if (["post", "put", "patch"].indexOf(config.method) !== -1) {
-    config.headers.setContentType("application/x-www-form-urlencoded", false);
+  if (["post", "put", "patch"].indexOf(config2.method) !== -1) {
+    config2.headers.setContentType("application/x-www-form-urlencoded", false);
   }
-  const adapter = adapters.getAdapter(config.adapter || defaults$1.adapter);
-  return adapter(config).then(function onAdapterResolution(response) {
-    throwIfCancellationRequested(config);
+  const adapter = adapters.getAdapter(config2.adapter || defaults$1.adapter);
+  return adapter(config2).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config2);
     response.data = transformData.call(
-      config,
-      config.transformResponse,
+      config2,
+      config2.transformResponse,
       response
     );
     response.headers = AxiosHeaders$1.from(response.headers);
     return response;
   }, function onAdapterRejection(reason) {
     if (!isCancel(reason)) {
-      throwIfCancellationRequested(config);
+      throwIfCancellationRequested(config2);
       if (reason && reason.response) {
         reason.response.data = transformData.call(
-          config,
-          config.transformResponse,
+          config2,
+          config2.transformResponse,
           reason.response
         );
         reason.response.headers = AxiosHeaders$1.from(reason.response.headers);
@@ -1998,23 +1998,23 @@ const validators$1 = {};
   };
 });
 const deprecatedWarnings = {};
-validators$1.transitional = function transitional(validator2, version, message) {
+validators$1.transitional = function transitional(validator2, version2, message) {
   function formatMessage(opt, desc) {
     return "[Axios v" + VERSION + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
   }
   return (value, opt, opts) => {
     if (validator2 === false) {
       throw new AxiosError(
-        formatMessage(opt, " has been removed" + (version ? " in " + version : "")),
+        formatMessage(opt, " has been removed" + (version2 ? " in " + version2 : "")),
         AxiosError.ERR_DEPRECATED
       );
     }
-    if (version && !deprecatedWarnings[opt]) {
+    if (version2 && !deprecatedWarnings[opt]) {
       deprecatedWarnings[opt] = true;
       console.warn(
         formatMessage(
           opt,
-          " has been deprecated since v" + version + " and will be removed in the near future"
+          " has been deprecated since v" + version2 + " and will be removed in the near future"
         )
       );
     }
@@ -2064,9 +2064,9 @@ class Axios {
    *
    * @returns {Promise} The Promise to be fulfilled
    */
-  async request(configOrUrl, config) {
+  async request(configOrUrl, config2) {
     try {
-      return await this._request(configOrUrl, config);
+      return await this._request(configOrUrl, config2);
     } catch (err) {
       if (err instanceof Error) {
         let dummy;
@@ -2084,15 +2084,15 @@ class Axios {
       throw err;
     }
   }
-  _request(configOrUrl, config) {
+  _request(configOrUrl, config2) {
     if (typeof configOrUrl === "string") {
-      config = config || {};
-      config.url = configOrUrl;
+      config2 = config2 || {};
+      config2.url = configOrUrl;
     } else {
-      config = configOrUrl || {};
+      config2 = configOrUrl || {};
     }
-    config = mergeConfig(this.defaults, config);
-    const { transitional: transitional2, paramsSerializer, headers } = config;
+    config2 = mergeConfig(this.defaults, config2);
+    const { transitional: transitional2, paramsSerializer, headers } = config2;
     if (transitional2 !== void 0) {
       validator.assertOptions(transitional2, {
         silentJSONParsing: validators.transitional(validators.boolean),
@@ -2102,7 +2102,7 @@ class Axios {
     }
     if (paramsSerializer != null) {
       if (utils$1.isFunction(paramsSerializer)) {
-        config.paramsSerializer = {
+        config2.paramsSerializer = {
           serialize: paramsSerializer
         };
       } else {
@@ -2112,10 +2112,10 @@ class Axios {
         }, true);
       }
     }
-    config.method = (config.method || this.defaults.method || "get").toLowerCase();
+    config2.method = (config2.method || this.defaults.method || "get").toLowerCase();
     let contextHeaders = headers && utils$1.merge(
       headers.common,
-      headers[config.method]
+      headers[config2.method]
     );
     headers && utils$1.forEach(
       ["delete", "get", "head", "post", "put", "patch", "common"],
@@ -2123,11 +2123,11 @@ class Axios {
         delete headers[method];
       }
     );
-    config.headers = AxiosHeaders$1.concat(contextHeaders, headers);
+    config2.headers = AxiosHeaders$1.concat(contextHeaders, headers);
     const requestInterceptorChain = [];
     let synchronousRequestInterceptors = true;
     this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-      if (typeof interceptor.runWhen === "function" && interceptor.runWhen(config) === false) {
+      if (typeof interceptor.runWhen === "function" && interceptor.runWhen(config2) === false) {
         return;
       }
       synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
@@ -2145,14 +2145,14 @@ class Axios {
       chain.unshift.apply(chain, requestInterceptorChain);
       chain.push.apply(chain, responseInterceptorChain);
       len = chain.length;
-      promise = Promise.resolve(config);
+      promise = Promise.resolve(config2);
       while (i < len) {
         promise = promise.then(chain[i++], chain[i++]);
       }
       return promise;
     }
     len = requestInterceptorChain.length;
-    let newConfig = config;
+    let newConfig = config2;
     i = 0;
     while (i < len) {
       const onFulfilled = requestInterceptorChain[i++];
@@ -2176,25 +2176,25 @@ class Axios {
     }
     return promise;
   }
-  getUri(config) {
-    config = mergeConfig(this.defaults, config);
-    const fullPath = buildFullPath(config.baseURL, config.url);
-    return buildURL(fullPath, config.params, config.paramsSerializer);
+  getUri(config2) {
+    config2 = mergeConfig(this.defaults, config2);
+    const fullPath = buildFullPath(config2.baseURL, config2.url);
+    return buildURL(fullPath, config2.params, config2.paramsSerializer);
   }
 }
 utils$1.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
-  Axios.prototype[method] = function(url, config) {
-    return this.request(mergeConfig(config || {}, {
+  Axios.prototype[method] = function(url, config2) {
+    return this.request(mergeConfig(config2 || {}, {
       method,
       url,
-      data: (config || {}).data
+      data: (config2 || {}).data
     }));
   };
 });
 utils$1.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
   function generateHTTPMethod(isForm) {
-    return function httpMethod(url, data, config) {
-      return this.request(mergeConfig(config || {}, {
+    return function httpMethod(url, data, config2) {
+      return this.request(mergeConfig(config2 || {}, {
         method,
         headers: isForm ? {
           "Content-Type": "multipart/form-data"
@@ -2237,11 +2237,11 @@ class CancelToken {
       };
       return promise;
     };
-    executor(function cancel(message, config, request) {
+    executor(function cancel(message, config2, request) {
       if (token.reason) {
         return;
       }
-      token.reason = new CanceledError(message, config, request);
+      token.reason = new CanceledError(message, config2, request);
       resolvePromise(token.reason);
     });
   }
@@ -2409,7 +2409,7 @@ const axios = axios_1;
 const fs = require$$2;
 const path = require$$3;
 const { LocalFileData } = require$$4;
-var editorjs$1 = ({ strapi }) => ({
+var editorjs$1 = ({ strapi: strapi2 }) => ({
   link: async (ctx) => {
     const result = await new Promise((resolve) => {
       ogs(ctx.query, (error, results, response) => {
@@ -2428,10 +2428,10 @@ var editorjs$1 = ({ strapi }) => ({
   },
   byFile: async (ctx) => {
     try {
-      const { files } = ctx.request;
-      const [uploadedFile] = await strapi.plugin("upload").service("upload").upload({
+      const { files: files2 } = ctx.request;
+      const [uploadedFile] = await strapi2.plugin("upload").service("upload").upload({
         data: {},
-        files: Object.values(files)
+        files: Object.values(files2)
       });
       ctx.send({
         success: 1,
@@ -2462,7 +2462,7 @@ var editorjs$1 = ({ strapi }) => ({
         type: fileData.type,
         size: Buffer.byteLength(buffer)
       };
-      const [uploadedFile] = await strapi.plugin("upload").service("upload").upload({
+      const [uploadedFile] = await strapi2.plugin("upload").service("upload").upload({
         data: {},
         files: file
       });
@@ -2487,8 +2487,142 @@ var controllers$1 = {
   editorjs
 };
 const name$1 = "strapi-plugin-react-editorjs";
+const version = "0.0.1";
+const description = "Plugin for Strapi Headless CMS, hiding the standard WYSIWYG editor and replacing it with Editor.js";
+const homepage = "https://market.strapi.io/plugins/strapi-plugin-react-editorjs";
+const scripts = {
+  build: "strapi-plugin build",
+  watch: "strapi-plugin watch",
+  "watch:link": "strapi-plugin watch:link",
+  verify: "strapi-plugin verify"
+};
+const type$1 = "commonjs";
+const files = [
+  "dist"
+];
+const exports = {
+  "./package.json": "./package.json",
+  "./strapi-admin": {
+    source: "./admin/src/index.js",
+    "import": "./dist/admin/index.mjs",
+    require: "./dist/admin/index.js",
+    "default": "./dist/admin/index.js"
+  },
+  "./strapi-server": {
+    source: "./server/src/index.js",
+    "import": "./dist/server/index.mjs",
+    require: "./dist/server/index.js",
+    "default": "./dist/server/index.js"
+  }
+};
+const dependencies = {
+  "@strapi/design-system": "^2.0.0-rc.11",
+  "@strapi/icons": "^2.0.0-rc.11",
+  "@strapi/utils": "^5.1.0",
+  "react-intl": "^6.8.0",
+  "@editorjs/checklist": "1.6.0",
+  "@editorjs/code": "2.9.2",
+  "@editorjs/delimiter": "1.4.2",
+  "@editorjs/editorjs": "2.30.6",
+  "@editorjs/embed": "2.7.6",
+  "@editorjs/header": "2.8.8",
+  "@editorjs/image": "2.10.0",
+  "@editorjs/inline-code": "1.5.1",
+  "@editorjs/link": "2.6.2",
+  "@editorjs/list": "1.10.0",
+  "@editorjs/marker": "1.4.0",
+  "@editorjs/paragraph": "2.11.6",
+  "@editorjs/quote": "2.7.2",
+  "@editorjs/raw": "2.5.0",
+  "@editorjs/table": "2.4.2",
+  "@editorjs/warning": "1.4.0",
+  classnames: "^2.3.1",
+  "get-file-object-from-local-path": "1.0.2",
+  "open-graph-scraper": "4.9.2",
+  "react-editor-js": "2.1.0"
+};
+const devDependencies = {
+  "@semantic-release/changelog": "^6.0.1",
+  "@semantic-release/git": "^10.0.1",
+  "cz-conventional-changelog": "^3.3.0",
+  "semantic-release": "^19.0.2",
+  "@strapi/strapi": "^5.1.0",
+  "@strapi/sdk-plugin": "^5.2.7",
+  prettier: "^3.3.3",
+  react: "^18.3.1",
+  "react-dom": "^18.3.1",
+  "react-router-dom": "^6.27.0",
+  "styled-components": "^6.1.13"
+};
+const peerDependencies = {
+  "@strapi/strapi": "^5",
+  "@strapi/sdk-plugin": "^5",
+  react: "^18.3.1",
+  "react-dom": "^18.3.1",
+  "react-router-dom": "^6.27.0",
+  "styled-components": "^6.1.13"
+};
+const config = {
+  commitizen: {
+    path: "./node_modules/cz-conventional-changelog"
+  }
+};
+const author = {
+  name: "Matvey Melishev",
+  email: "matvey@melishev.ru",
+  url: "https://melishev.ru"
+};
+const maintainers = [
+  {
+    name: "Matvey Melishev",
+    email: "matvey@melishev.ru",
+    url: "https://melishev.ru"
+  },
+  {
+    name: "Jason Skipper",
+    url: "https://www.skipperinnovations.com"
+  }
+];
+const repository = {
+  type: "git",
+  url: "https://github.com/melishev/strapi-plugin-editor-js.git"
+};
+const bugs = {
+  url: "https://github.com/melishev/strapi-plugin-editor-js/issues"
+};
+const keywords = [
+  "strapi",
+  "plugin",
+  "editor-js",
+  "wysiwyg"
+];
+const strapi = {
+  name: "editorjs",
+  displayName: "editorjs",
+  description: "Integrate editorjs with strapi",
+  kind: "plugin"
+};
+const license = "MIT";
 const require$$0 = {
-  name: name$1
+  name: name$1,
+  version,
+  description,
+  homepage,
+  scripts,
+  type: type$1,
+  files,
+  exports,
+  dependencies,
+  devDependencies,
+  peerDependencies,
+  config,
+  author,
+  maintainers,
+  repository,
+  bugs,
+  keywords,
+  strapi,
+  license
 };
 const pluginPkg = require$$0;
 const pluginId$1 = pluginPkg.name.replace(/^strapi-plugin-react-/i, "");
@@ -2497,8 +2631,8 @@ const PluginId = /* @__PURE__ */ getDefaultExportFromCjs(pluginId_1);
 const pluginId = pluginId_1;
 const name = "wysiwyg";
 const type = "richtext";
-const serverRegister = ({ strapi }) => {
-  strapi.customFields.register({
+const serverRegister = ({ strapi: strapi2 }) => {
+  strapi2.customFields.register({
     name,
     plugin: pluginId,
     type,
@@ -2526,7 +2660,7 @@ const adminRegister = (app) => {
     components: {
       Input: async () => import(
         /* webpackChunkName: "input-component" */
-        "./index-_oUllacu.mjs"
+        "./index-jCFienjP.mjs"
       )
     },
     options: {
@@ -2546,8 +2680,8 @@ var src = {
   services,
   routes,
   controllers,
-  register({ strapi }) {
-    wysiwyg_field_register.serverRegister({ strapi });
+  register({ strapi: strapi2 }) {
+    wysiwyg_field_register.serverRegister({ strapi: strapi2 });
   }
 };
 const index = /* @__PURE__ */ getDefaultExportFromCjs(src);
@@ -2558,4 +2692,3 @@ export {
   getDefaultExportFromCjs as g,
   index as i
 };
-//# sourceMappingURL=index-Bx5_bZ90.mjs.map
