@@ -67,7 +67,7 @@ const Wrapper = styled(Box)`
     }
   }
   .cdx-input.image-tool__caption {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: #444;
     line-height: 1.5;
   }
