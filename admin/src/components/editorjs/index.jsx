@@ -1,12 +1,9 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
 import getRequiredTools from "./requiredTools";
 import customTools from "../../config/customTools";
 import MediaLibAdapter from "../medialib/adapter";
 import MediaLibComponent from "../medialib/component";
-import { changeFunc, getToggleFunc } from "../medialib/utils";
-import { useAuth } from "@strapi/strapi/admin";
-// import EditorJs from "react-editor-js";
+import { getToggleFunc } from "../medialib/utils";
 import EditorJs from "@react-editor-js/client";
 import { isEqual } from "lodash";
 const getValue = (value) => {

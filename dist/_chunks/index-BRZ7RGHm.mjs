@@ -2487,7 +2487,7 @@ var controllers$1 = {
   editorjs
 };
 const name$1 = "strapi-plugin-react-editorjs";
-const version = "0.0.1";
+const version = "0.0.2";
 const description = "Plugin for Strapi Headless CMS, hiding the standard WYSIWYG editor and replacing it with Editor.js";
 const homepage = "https://market.strapi.io/plugins/strapi-plugin-react-editorjs";
 const scripts = {
@@ -2516,10 +2516,6 @@ const exports = {
   }
 };
 const dependencies = {
-  "@strapi/design-system": "^2.0.0-rc.11",
-  "@strapi/icons": "^2.0.0-rc.11",
-  "@strapi/utils": "^5.1.0",
-  "react-intl": "^6.8.0",
   "@editorjs/checklist": "1.6.0",
   "@editorjs/code": "2.9.2",
   "@editorjs/delimiter": "1.4.2",
@@ -2536,27 +2532,32 @@ const dependencies = {
   "@editorjs/raw": "2.5.0",
   "@editorjs/table": "2.4.2",
   "@editorjs/warning": "1.4.0",
+  "@strapi/design-system": "^2.0.0-rc.11",
+  "@strapi/icons": "^2.0.0-rc.11",
+  "@strapi/utils": "^5.1.0",
   classnames: "^2.3.1",
+  "editorjs2-superscript": "^0.0.3",
   "get-file-object-from-local-path": "1.0.2",
   "open-graph-scraper": "4.9.2",
-  "react-editor-js": "2.1.0"
+  "react-editor-js": "2.1.0",
+  "react-intl": "^6.8.0"
 };
 const devDependencies = {
   "@semantic-release/changelog": "^6.0.1",
   "@semantic-release/git": "^10.0.1",
-  "cz-conventional-changelog": "^3.3.0",
-  "semantic-release": "^19.0.2",
-  "@strapi/strapi": "^5.1.0",
   "@strapi/sdk-plugin": "^5.2.7",
+  "@strapi/strapi": "^5.1.0",
+  "cz-conventional-changelog": "^3.3.0",
   prettier: "^3.3.3",
   react: "^18.3.1",
   "react-dom": "^18.3.1",
   "react-router-dom": "^6.27.0",
+  "semantic-release": "^19.0.2",
   "styled-components": "^6.1.13"
 };
 const peerDependencies = {
-  "@strapi/strapi": "^5",
   "@strapi/sdk-plugin": "^5",
+  "@strapi/strapi": "^5",
   react: "^18.3.1",
   "react-dom": "^18.3.1",
   "react-router-dom": "^6.27.0",
@@ -2660,7 +2661,7 @@ const adminRegister = (app) => {
     components: {
       Input: async () => import(
         /* webpackChunkName: "input-component" */
-        "./index-jCFienjP.mjs"
+        "./index-BPHblrqO.mjs"
       )
     },
     options: {

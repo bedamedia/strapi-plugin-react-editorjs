@@ -1,6 +1,6 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { g as getDefaultExportFromCjs, c as commonjsGlobal, P as PluginId } from "./index-GZH5nOiX.mjs";
+import { g as getDefaultExportFromCjs, c as commonjsGlobal, P as PluginId } from "./index-DprCiXi_.mjs";
 import Image from "@editorjs/image";
 import Embed from "@editorjs/embed";
 import Table from "@editorjs/table";
@@ -14,7 +14,7 @@ import Marker from "@editorjs/marker";
 import CheckList from "@editorjs/checklist";
 import Delimiter from "@editorjs/delimiter";
 import InlineCode from "@editorjs/inline-code";
-import "@editorjs/link";
+import Superscript from "editorjs2-superscript";
 import { useStrapiApp } from "@strapi/strapi/admin";
 import EditorJS from "@editorjs/editorjs";
 import Paragraph from "@editorjs/paragraph";
@@ -9448,6 +9448,9 @@ const customTools = {
     class: CheckList,
     inlineToolbar: true
   },
+  superscript: {
+    class: Superscript
+  },
   delimiter: Delimiter,
   inlineCode: InlineCode
 };
@@ -9939,7 +9942,7 @@ const Wrapper = styled(Box)`
     }
   }
   .cdx-input.image-tool__caption {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: #444;
     line-height: 1.5;
   }

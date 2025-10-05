@@ -10,11 +10,12 @@ import Marker from "@editorjs/marker";
 import CheckList from "@editorjs/checklist";
 import Delimiter from "@editorjs/delimiter";
 import InlineCode from "@editorjs/inline-code";
-import Link from "@editorjs/link";
+// import Link from "@editorjs/link";
 import Hyperlink from "../components/hyperlink/Hyperlink";
-import LinkBlockTune from "../components/LinkBlockTune";
-import SimpleImage from "../components/SimpleImage";
-import MarkerTool from "../components/MarkerTool";
+import Superscript from "editorjs2-superscript";
+// import LinkBlockTune from "../components/LinkBlockTune";
+// import SimpleImage from "../components/SimpleImage";
+// import MarkerTool from "../components/MarkerTool";
 
 const customTools = {
   embed: Embed,
@@ -47,7 +48,7 @@ const customTools = {
     },
     inlineToolbar: true,
   },
-  link: function () {},
+  link: function () { },
   // simpleImage: SimpleImage,
   // testMarker: MarkerTool,
 
@@ -80,6 +81,9 @@ const customTools = {
   checklist: {
     class: CheckList,
     inlineToolbar: true,
+  },
+  superscript: {
+    class: Superscript,
   },
   delimiter: Delimiter,
   inlineCode: InlineCode,
